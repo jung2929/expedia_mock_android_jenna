@@ -5,4 +5,5 @@
     <color name="colorAccent">#D81B60</color>
     <color name="expedia_blue">#002480</color>
     <color name="expedia_background">#EAEBEF</color>
+    <color name="expedia_light_blue">#005AEA</color>
 </resources>
