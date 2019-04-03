@@ -1,6 +1,7 @@
 package com.example.expedia;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 
 import java.util.ArrayList;
@@ -77,6 +79,15 @@ public class MainReservation extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
         adapter.setItems(new CategoryContents().getItems());
+
+        ImageView loginImage = view.findViewById(R.id.imageView8);
+
+        loginImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), LogInActivity.class));
+            }
+        });
 
         scrollView.post(new Runnable(){
            @Override

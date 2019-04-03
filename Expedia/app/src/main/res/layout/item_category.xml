@@ -17,7 +17,7 @@
             android:id="@+id/Main_categoryImage"
             android:layout_width="match_parent"
             android:layout_height="240dp"
-            android:scaleType="centerCrop"
+            android:scaleType="fitXY"
             app:srcCompat="?attr/colorPrimary" />
 
     </FrameLayout>
