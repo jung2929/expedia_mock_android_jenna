@@ -23,6 +23,7 @@ import java.util.ArrayList;
  */
 public class MainReservation extends Fragment {
 
+    ImageView hotel,airport,hotel_airport;
     private MainCategoryAdapter adapter = new MainCategoryAdapter();
 
     public MainReservation() {
@@ -80,14 +81,24 @@ public class MainReservation extends Fragment {
         recyclerView.setAdapter(adapter);
         adapter.setItems(new CategoryContents().getItems());
 
-        ImageView loginImage = view.findViewById(R.id.imageView8);
+        hotel = view.findViewById(R.id.Main_Hotel);
+        hotel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), HotelSearchActivity.class));
+            }
+        });
+        airport = view.findViewById(R.id.Main_Air);
+        hotel_airport = view.findViewById(R.id.Main_hotel_air);
 
+        ImageView loginImage = view.findViewById(R.id.imageView8);
         loginImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getContext(), LogInActivity.class));
             }
         });
+
 
         scrollView.post(new Runnable(){
            @Override
