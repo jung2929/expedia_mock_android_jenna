@@ -1,4 +1,4 @@
-package com.example.expedia;
+package com.example.expedia.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -14,12 +14,14 @@ import android.widget.ListPopupWindow;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.expedia.R;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
-import static com.example.expedia.HotelSearchActivity.adult;
-import static com.example.expedia.HotelSearchActivity.kid;
-import static com.example.expedia.HotelSearchActivity.kidAge;
+import static com.example.expedia.activity.HotelSearchActivity.adult;
+import static com.example.expedia.activity.HotelSearchActivity.kid;
+import static com.example.expedia.activity.HotelSearchActivity.kidAge;
 
 public class HotelPersonNumDialog extends Dialog {
     private Spinner spinner1, spinner2, spinner3, spinner4, spinner5, spinner6;
@@ -33,7 +35,7 @@ public class HotelPersonNumDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.person_num_dialog);
+        setContentView(R.layout.dialog_person_num);
 
         spinner1 = findViewById(R.id.spinner);
         spinner2 = findViewById(R.id.spinner2);
@@ -188,10 +190,10 @@ public class HotelPersonNumDialog extends Dialog {
                 spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        if(kidAge.size() == 1){
+                        if(kidAge.size() >= 1){
                             kidAge.remove(0);
                         }
-                        kidAge.add(position);
+                        kidAge.add(0,position);
                     }
 
                     @Override
@@ -222,16 +224,16 @@ public class HotelPersonNumDialog extends Dialog {
                 two.setVisibility(View.GONE);
                 three.setVisibility(View.GONE);
                 spinner2.setAdapter(spinnerAdapter);
-                if (kidAge.size()== 2){
+                if (kidAge.size() == 2){
                     kidAge.remove(1);
                 }
                 spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        if(kidAge.size() == 2 ){
+                        if(kidAge.size() >= 2 ){
                             kidAge.remove(1);
                         }
-                        kidAge.add(position);
+                        kidAge.add(1, position);
                     }
 
                     @Override
@@ -269,10 +271,10 @@ public class HotelPersonNumDialog extends Dialog {
                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        if(kidAge.size() == 3 ){
+                        if(kidAge.size() >= 3 ){
                             kidAge.remove(2);
                         }
-                        kidAge.add(position);
+                        kidAge.add(2, position);
                     }
 
                     @Override
@@ -309,10 +311,10 @@ public class HotelPersonNumDialog extends Dialog {
                 spinner4.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        if(kidAge.size() == 4 ){
+                        if(kidAge.size() >= 4 ){
                             kidAge.remove(3);
                         }
-                        kidAge.add(position);
+                        kidAge.add(3, position);
                     }
 
                     @Override
@@ -349,10 +351,10 @@ public class HotelPersonNumDialog extends Dialog {
                 spinner5.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        if(kidAge.size() == 5){
+                        if(kidAge.size() >= 5){
                             kidAge.remove(4);
                         }
-                        kidAge.add(position);
+                        kidAge.add(4, position);
                     }
 
                     @Override
@@ -393,7 +395,7 @@ public class HotelPersonNumDialog extends Dialog {
                         if(kidAge.size() == 6 ){
                             kidAge.remove(5);
                         }
-                        kidAge.add(position);
+                        kidAge.add(5, position);
                     }
 
                     @Override
@@ -423,7 +425,7 @@ public class HotelPersonNumDialog extends Dialog {
                 spinner6.setVisibility(View.VISIBLE);
                 one.setVisibility(View.VISIBLE);
                 two.setVisibility(View.VISIBLE);
-                three.setVisibility(View.GONE);
+                three.setVisibility(View.VISIBLE);
                 break;
         }
     }

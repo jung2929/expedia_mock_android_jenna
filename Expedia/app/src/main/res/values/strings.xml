@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">Expedia</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="special_price_title">"￦80,000 이하 특가 호텔"</string>
+    <string name="special_price_subtitle">"호텔이 1박에 ￦80,000이하! 모두가 좋아할 파격 특가 혜택!"</string>
+    <string name="agreement">"이용약관 ⓘ"</string>
+    <string name="agreement_detail">"예시된 호텔 요금은 명시된 여행 기간 동안 최저가 객실 유형에 대한 2인실 기준 1박당 요금이며, 세금 및 기타 수수료를 제외한 금액입니다.
+        표시된 할인이 참여 숙박시설에 적용됩니다. 모든 상품은 이용 상황에 따라 제공 여부가 달리질 수 있으며 공지 없이 중단될 수 있습니다.
+        최소 숙박 일수, 적용 제외 날짜, 예약 가능 객실 유형, 사전 구매 등을 포함한 추가 제한 사항이 있을 수 있습니다. 자세한 내용은 각 호텔에서 확인하시기 바랍니다. 호텔별 조건이 적용될 수 있으며, 이는 예약 전 통보됩니다. 익스피디아의 일반 예약 이용약관이 적용됩니다.
+        프로모션 주최:Expedia Inc, 333 - 108th Avenue NE, Bellevue, WA 98004, USA."</string>
 </resources>

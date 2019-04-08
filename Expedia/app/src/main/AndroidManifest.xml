@@ -9,7 +9,7 @@
         android:roundIcon="@drawable/expedia_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".SplashActivity">
+        <activity android:name=".activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,12 +17,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:label="@string/app_name">
         </activity>
-        <activity android:name=".LogInActivity"/>
-        <activity android:name=".HotelSearchActivity"/>
-        <activity android:name=".HotelDestinationActivity"/>
+        <activity android:name=".activity.LogInActivity"/>
+        <activity android:name=".activity.HotelSearchActivity"/>
+        <activity android:name=".activity.HotelDestinationActivity"/>
+        <activity android:name=".activity.RecommendHotelListActivity"/>
+        <activity android:name=".activity.HotelDetailActivity"/>
+        <activity android:name=".activity.SearchHotelListActivity"/>
     </application>
 
 </manifest>

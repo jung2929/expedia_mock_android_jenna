@@ -1,10 +1,12 @@
-package com.example.expedia;
+package com.example.expedia.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+
+import com.example.expedia.R;
 
 public class SplashActivity extends AppCompatActivity {
 

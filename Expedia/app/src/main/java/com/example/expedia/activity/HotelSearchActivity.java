@@ -1,4 +1,4 @@
-package com.example.expedia;
+package com.example.expedia.activity;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -12,7 +12,9 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.example.expedia.dialog.HotelPersonNumDialog;
+import com.example.expedia.R;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -25,8 +27,8 @@ public class HotelSearchActivity extends AppCompatActivity {
     String destinationData, date_start, date_end, person_num;
     Calendar calendar_start = Calendar.getInstance();
     Calendar calendar_end = Calendar.getInstance();
-    static int adult, kid;
-    static ArrayList<Integer> kidAge;
+    static public int adult, kid;
+    static public ArrayList<Integer> kidAge;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

@@ -1,4 +1,4 @@
-package com.example.expedia;
+package com.example.expedia.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -7,7 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
+
+import com.example.expedia.R;
 
 public class HotelDestinationActivity extends AppCompatActivity {
     private boolean activityStartup = true;

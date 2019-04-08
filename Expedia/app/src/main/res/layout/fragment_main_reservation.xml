@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/expedia_background"
     android:id="@+id/scrollView"
-    tools:context=".MainReservation">
+    tools:context=".fragment.MainReservationFragment">
 
     <FrameLayout
         android:layout_width="match_parent"

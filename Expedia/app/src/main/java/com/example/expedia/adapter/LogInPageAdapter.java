@@ -1,8 +1,11 @@
-package com.example.expedia;
+package com.example.expedia.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import com.example.expedia.fragment.LogInFragment;
+import com.example.expedia.fragment.LogInSignUpFragment;
 
 public class LogInPageAdapter extends FragmentPagerAdapter {
     int mNumOfTabs;

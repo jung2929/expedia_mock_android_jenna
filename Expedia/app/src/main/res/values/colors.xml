@@ -4,7 +4,9 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="expedia_blue">#002480</color>
+    <color name="expedia_darkblue">#000066</color>
     <color name="expedia_background">#EAEBEF</color>
     <color name="expedia_light_blue">#005AEA</color>
     <color name="expedia_text">#465280</color>
+    <color name="background_default">#ffffff</color>
 </resources>

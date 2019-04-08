@@ -1,4 +1,4 @@
-package com.example.expedia;
+package com.example.expedia.activity;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,7 +7,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.TextView;
+
+import com.example.expedia.adapter.MainPageAdapter;
+import com.example.expedia.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,8 +38,7 @@ public class MainActivity extends AppCompatActivity {
                 if (prevMenuItem != null) {
                     prevMenuItem.setChecked(false);
                 }
-                else
-                {
+                else {
                     navigation.getMenu().getItem(0).setChecked(false);
                 }
                 Log.d("page", "onPageSelected: "+ i);

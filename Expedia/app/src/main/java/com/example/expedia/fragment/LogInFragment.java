@@ -1,4 +1,4 @@
-package com.example.expedia;
+package com.example.expedia.fragment;
 
 
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.expedia.R;
 
 
 /**

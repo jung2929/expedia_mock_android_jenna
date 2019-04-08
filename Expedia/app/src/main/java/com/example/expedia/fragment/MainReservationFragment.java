@@ -1,10 +1,9 @@
-package com.example.expedia;
+package com.example.expedia.fragment;
 
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,61 +12,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 
-import java.util.ArrayList;
+import com.example.expedia.adapter.MainRecommendationAdapter;
+import com.example.expedia.R;
+import com.example.expedia.activity.HotelSearchActivity;
+import com.example.expedia.activity.LogInActivity;
+import com.example.expedia.sampledata.RecommendationDataSample;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MainReservation extends Fragment {
+public class MainReservationFragment extends Fragment {
 
     ImageView hotel,airport,hotel_airport;
-    private MainCategoryAdapter adapter = new MainCategoryAdapter();
+    private MainRecommendationAdapter adapter = new MainRecommendationAdapter();
 
-    public MainReservation() {
+    public MainReservationFragment() {
         // Required empty public constructor
-    }
-
-    public class Category{
-        private int image;
-        private int no;// 0 = 80000원 이하 1 = 일일 2 = 마감
-
-        public Category(int image, int no){
-            this.image = image;
-            this.no = no;
-        }
-
-        public int getImage() {
-            return image;
-        }
-
-        public void setImage(int image) {
-            this.image = image;
-        }
-
-        public int getNo() {
-            return no;
-        }
-
-        public void setNo(int no) {
-            this.no = no;
-        }
-    }
-
-    public class CategoryContents{
-        ArrayList<Category> items = new ArrayList<>();
-
-        public ArrayList<Category> getItems(){
-            Category under80000 = new Category(R.drawable.under80000,0);
-            Category daybyday = new Category(R.drawable.daybyday,1);
-
-            items.add(under80000);
-            items.add(daybyday);
-
-            return items;
-        }
     }
 
     @Override
@@ -79,7 +41,7 @@ public class MainReservation extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.Main_category_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
-        adapter.setItems(new CategoryContents().getItems());
+        adapter.setItems(new RecommendationDataSample().getItems());
 
         hotel = view.findViewById(R.id.Main_Hotel);
         hotel.setOnClickListener(new View.OnClickListener() {

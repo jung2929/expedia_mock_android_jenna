@@ -1,4 +1,4 @@
-package com.example.expedia;
+package com.example.expedia.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -8,23 +8,26 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.example.expedia.R;
+import com.example.expedia.data.RecommendationData;
+import com.example.expedia.fragment.MainReservationFragment;
 
 import java.util.ArrayList;
 
-public class MainCategoryAdapter extends RecyclerView.Adapter<MainCategoryAdapter.ViewHolder> {
+public class MainRecommendationAdapter extends RecyclerView.Adapter<MainRecommendationAdapter.ViewHolder> {
 
-    private ArrayList<MainReservation.Category> items = new ArrayList<>();
+    private ArrayList<RecommendationData> items = new ArrayList<>();
 
     @NonNull
     @Override
-    public MainCategoryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i){
+    public MainRecommendationAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i){
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_category,parent,false);
         return new ViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MainCategoryAdapter.ViewHolder viewHolder, int position){
-        MainReservation.Category item = items.get(position);
+    public void onBindViewHolder(@NonNull MainRecommendationAdapter.ViewHolder viewHolder, int position){
+        RecommendationData item = items.get(position);
         Glide.with(viewHolder.itemView.getContext()).load(item.getImage()).override(430,300).centerCrop().into(viewHolder.imageView);
     }
 
@@ -33,7 +36,7 @@ public class MainCategoryAdapter extends RecyclerView.Adapter<MainCategoryAdapte
         return items.size();
     }
 
-    public void setItems(ArrayList<MainReservation.Category> items) {
+    public void setItems(ArrayList<RecommendationData> items) {
         this.items = items;
     }
 

@@ -1,4 +1,4 @@
-package com.example.expedia;
+package com.example.expedia.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,6 +7,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
+
+import com.example.expedia.adapter.LogInPageAdapter;
+import com.example.expedia.R;
 
 public class LogInActivity extends AppCompatActivity {
     @Override
