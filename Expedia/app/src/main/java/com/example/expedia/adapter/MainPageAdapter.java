@@ -9,10 +9,8 @@ import com.example.expedia.fragment.MainPlanFragment;
 import com.example.expedia.fragment.MainReservationFragment;
 
 public class MainPageAdapter extends FragmentPagerAdapter {
-    int mNumOfTabs;
-    MainReservationFragment tab1;
-    MainPlanFragment tab2;
-    MainAccountFragment tab3;
+    private int mNumOfTabs;
+
     public MainPageAdapter(FragmentManager fm, int numOfTabs){
         super(fm);
         this.mNumOfTabs = numOfTabs;
@@ -23,20 +21,12 @@ public class MainPageAdapter extends FragmentPagerAdapter {
 
         switch (position) {
             case 0:
-                if(tab1 == null) {
-                    tab1 = new MainReservationFragment();
-                }
-                return tab1;
+                return new MainReservationFragment();
             case 1:
-                if(tab2 == null) {
-                    tab2 = new MainPlanFragment();
-                }
-                return tab2;
+                return new MainPlanFragment();
             case 2:
-                if(tab3 == null) {
-                    tab3 = new MainAccountFragment();
-                }
-                return tab3;
+
+                return new MainAccountFragment();
 
             default:
                 return null;

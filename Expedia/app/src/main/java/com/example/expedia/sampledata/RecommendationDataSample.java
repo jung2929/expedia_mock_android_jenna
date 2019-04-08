@@ -7,7 +7,7 @@ import com.example.expedia.data.RecommendationData;
 import java.util.ArrayList;
 
 public class RecommendationDataSample{
-    ArrayList<RecommendationData> items = new ArrayList<>();
+    private ArrayList<RecommendationData> items = new ArrayList<>();
 
     public ArrayList<RecommendationData> getItems(){
         RecommendationData under80000 = new RecommendationData(R.drawable.under80000,0);

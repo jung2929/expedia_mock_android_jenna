@@ -2,6 +2,7 @@ package com.example.expedia.fragment;
 
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -13,7 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.example.expedia.adapter.MainRecommendationAdapter;
+import com.example.expedia.activity.RecommendHotelListActivity;
+import com.example.expedia.adapter.MainRecommendationRVAdapter;
 import com.example.expedia.R;
 import com.example.expedia.activity.HotelSearchActivity;
 import com.example.expedia.activity.LogInActivity;
@@ -25,8 +27,8 @@ import com.example.expedia.sampledata.RecommendationDataSample;
  */
 public class MainReservationFragment extends Fragment {
 
-    ImageView hotel,airport,hotel_airport;
-    private MainRecommendationAdapter adapter = new MainRecommendationAdapter();
+
+    private MainRecommendationRVAdapter adapter = new MainRecommendationRVAdapter();
 
     public MainReservationFragment() {
         // Required empty public constructor
@@ -43,21 +45,32 @@ public class MainReservationFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         adapter.setItems(new RecommendationDataSample().getItems());
 
-        hotel = view.findViewById(R.id.Main_Hotel);
+
+        ImageView hotel = view.findViewById(R.id.Main_Hotel);
         hotel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getContext(), HotelSearchActivity.class));
             }
         });
-        airport = view.findViewById(R.id.Main_Air);
-        hotel_airport = view.findViewById(R.id.Main_hotel_air);
+        ImageView airport = view.findViewById(R.id.Main_Air);
+        ImageView hotel_airport = view.findViewById(R.id.Main_hotel_air);
 
         ImageView loginImage = view.findViewById(R.id.imageView8);
         loginImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getContext(), LogInActivity.class));
+            }
+        });
+
+        ImageView deadlineImage = view.findViewById(R.id.imageView2);
+        deadlineImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), RecommendHotelListActivity.class);
+                intent.putExtra("no", 2);
+                startActivity(intent);
             }
         });
 

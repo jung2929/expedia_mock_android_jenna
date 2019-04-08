@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@color/background_default"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="10dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/cancel_btn"
+            android:layout_width="35dp"
+            android:layout_height="match_parent"
+            android:layout_margin="0dp"
+            android:layout_marginStart="10dp"
+            android:padding="10dp"
+            app:srcCompat="@drawable/cancle_btn" />
+
+        <TextView
+            android:id="@+id/deadline"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="5dp"
+            android:gravity="center"
+            android:textColor="@color/expedia_darkblue"
+            android:textSize="16sp"
+            android:text="@string/deadline" />
+
+    </LinearLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:textColor="@color/expedia_darkblue"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                tools:text="@string/special_price_title" />
+
+            <TextView
+                android:id="@+id/subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:gravity="center"
+                android:textColor="@color/expedia_darkblue"
+                tools:text="@string/special_price_subtitle" />
+
+            <TextView
+                android:id="@+id/agreement"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:textColor="@color/expedia_darkblue"
+                android:text="@string/agreement" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvRecommendHotelList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/expedia_background" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+
+</LinearLayout>
