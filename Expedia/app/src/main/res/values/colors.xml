@@ -9,4 +9,5 @@
     <color name="expedia_light_blue">#005AEA</color>
     <color name="expedia_text">#465280</color>
     <color name="background_default">#ffffff</color>
+    <color name="divider">#999999</color>
 </resources>

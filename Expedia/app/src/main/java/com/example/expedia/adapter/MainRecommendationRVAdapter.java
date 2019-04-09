@@ -3,7 +3,6 @@ package com.example.expedia.adapter;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +34,6 @@ public class MainRecommendationRVAdapter extends RecyclerView.Adapter<MainRecomm
         mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("TAG","클릭 작동");
                 Intent intent = new Intent(v.getContext(), RecommendHotelListActivity.class);
                 int no = item.getNo();
                 intent.putExtra("no", no);

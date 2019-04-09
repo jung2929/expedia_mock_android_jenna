@@ -1,0 +1,629 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@color/background_default"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".activity.HotelDetailActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="10dp">
+
+
+        <ImageView
+            android:id="@+id/cancel_btn"
+            android:layout_width="35dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="0dp"
+            android:layout_marginStart="10dp"
+            android:padding="5dp"
+            app:srcCompat="@drawable/back_icon" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/hotelName_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="4"
+                android:gravity="center"
+                android:textColor="@color/expedia_darkblue"
+                tools:text="랜딩관 제주신화월드 호텔앤리조트" />
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                style="@style/Widget.AppCompat.RatingBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:isIndicator="true"
+                android:max="5"
+                android:numStars="5"
+                android:rating="4.5"
+                android:stepSize="0.5" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/share_imageView"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:srcCompat="@android:drawable/ic_menu_share" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/hotelImage_viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="230dp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/expedia_background">
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|start"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/sale_round">
+
+                    <TextView
+                        android:id="@+id/sale_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="3dp"
+                        android:layout_marginEnd="3dp"
+                        tools:text="-75%" />
+                </FrameLayout>
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/originalPrice_textView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/expedia_darkblue"
+                        tools:text="￦272,727" />
+
+                    <LinearLayout
+                        android:id="@+id/editPeriod_layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="end"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="3dp"
+                            app:srcCompat="@drawable/edit_icon" />
+
+                        <TextView
+                            android:id="@+id/period_textView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="5월 14일 ~ 5월 15일"
+                            android:textColor="@color/expedia_light_blue" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/specialPrice_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/expedia_darkblue"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        tools:text="￦68,182" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="0dp"
+                        android:layout_toEndOf="@+id/specialPrice_textView"
+                        android:textColor="@color/expedia_darkblue"
+                        android:textSize="18sp"
+                        tools:text="/1박" />
+
+                    <TextView
+                        android:id="@+id/person_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="0dp"
+                        android:textColor="@color/expedia_darkblue"
+                        tools:text="2명" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/point_textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:textColor="@color/expedia_darkblue"
+                    android:textSize="12sp"
+                    tools:text="276포인트 적립" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.3dp"
+                android:background="@color/divider" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:id="@+id/ratingTotal_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/expedia_darkblue"
+                    android:textStyle="bold"
+                    tools:text="4.2" />
+
+                <TextView
+                    android:id="@+id/ratingMax_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="0dp"
+                    android:layout_toEndOf="@+id/ratingTotal_textView"
+                    android:textColor="@color/expedia_darkblue"
+                    android:text="/5" />
+
+                <TextView
+                    android:id="@+id/generalReview_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:layout_toEndOf="@+id/ratingMax_textView"
+                    android:textColor="@color/expedia_darkblue"
+                    tools:text="- 매우 좋음!" />
+
+                <TextView
+                    android:id="@+id/review_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="0dp"
+                    android:textColor="@color/expedia_light_blue"
+                    tools:text="473개 이용 후기 보기" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/clean_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/room_clean"
+                        android:textColor="@color/expedia_darkblue"
+                        android:textSize="13sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <RatingBar
+                        android:id="@+id/clean_ratingBar"
+                        style="@android:style/Widget.DeviceDefault.RatingBar.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="3dp"
+                        android:isIndicator="true"
+                        android:numStars="5"
+                        tools:rating="4.2"
+                        android:stepSize="0.1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/clean_textView" />
+
+                    <TextView
+                        android:id="@+id/clean_rating_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:textColor="@color/expedia_darkblue"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/clean_ratingBar"
+                        app:layout_constraintStart_toEndOf="@+id/clean_ratingBar"
+                        tools:text="4.2" />
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/comfort_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/room_comfort"
+                        android:textColor="@color/expedia_darkblue"
+                        android:textSize="13sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <RatingBar
+                        android:id="@+id/comfort_ratingBar"
+                        style="@android:style/Widget.DeviceDefault.RatingBar.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="3dp"
+                        android:isIndicator="true"
+                        android:numStars="5"
+                        tools:rating="4.2"
+                        android:stepSize="0.1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/comfort_textView" />
+
+                    <TextView
+                        android:id="@+id/comfort_rating_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:textColor="@color/expedia_darkblue"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/comfort_ratingBar"
+                        app:layout_constraintStart_toEndOf="@+id/comfort_ratingBar"
+                        tools:text="4.2" />
+                </android.support.constraint.ConstraintLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/service_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/room_service"
+                        android:textColor="@color/expedia_darkblue"
+                        android:textSize="13sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <RatingBar
+                        android:id="@+id/service_ratingBar"
+                        style="@android:style/Widget.DeviceDefault.RatingBar.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="3dp"
+                        android:isIndicator="true"
+                        android:numStars="5"
+                        tools:rating="4.2"
+                        android:stepSize="0.1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/service_textView" />
+
+                    <TextView
+                        android:id="@+id/service_rating_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:textColor="@color/expedia_darkblue"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/service_ratingBar"
+                        app:layout_constraintStart_toEndOf="@+id/service_ratingBar"
+                        tools:text="4.2" />
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/hotelStatus_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/hotel_status"
+                        android:textColor="@color/expedia_darkblue"
+                        android:textSize="13sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <RatingBar
+                        android:id="@+id/hotelStatus_ratingBar"
+                        style="@android:style/Widget.DeviceDefault.RatingBar.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="3dp"
+                        android:isIndicator="true"
+                        android:numStars="5"
+                        tools:rating="4.2"
+                        android:stepSize="0.1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/hotelStatus_textView" />
+
+                    <TextView
+                        android:id="@+id/hotelStatus_rating_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:textColor="@color/expedia_darkblue"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/hotelStatus_ratingBar"
+                        app:layout_constraintStart_toEndOf="@+id/hotelStatus_ratingBar"
+                        tools:text="4.2" />
+                </android.support.constraint.ConstraintLayout>
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.3dp"
+                android:background="@color/divider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        app:srcCompat="@drawable/check_image25" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:drawableStart="@drawable/sale_round"
+                        android:text="@string/free_cancel"
+                        android:textColor="@color/expedia_darkblue"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0.3dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/divider" />
+
+                <LinearLayout
+                    android:id="@+id/payLaterInfo_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        app:srcCompat="@drawable/check_image25" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:text="@string/pay_later"
+                        android:textColor="@color/expedia_darkblue"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="ⓘ"
+                        android:textColor="@color/expedia_light_blue"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.3dp"
+                android:background="@color/divider" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/option_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.3dp"
+                android:background="@color/divider" />
+
+            <com.google.android.gms.maps.MapView
+                android:id="@+id/mapView"
+                android:layout_width="match_parent"
+                android:layout_height="200dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/expedia_background"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardUseCompatPadding="true">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:id="@+id/payNowActive_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/background_default"
+                            android:orientation="horizontal"
+                            android:visibility="visible">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:background="@color/expedia_light_blue"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="20dp"
+                                    android:layout_height="wrap_content"
+                                    app:srcCompat="@drawable/check_white_icon" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="3dp"
+                                    android:text="@string/pay_now"
+                                    android:textColor="@color/background_default" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/payLater_textView"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="@string/pay_later"
+                                android:textColor="@color/expedia_light_blue" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/payLaterActive_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/background_default"
+                            android:orientation="horizontal"
+                            android:visibility="invisible">
+
+                            <TextView
+                                android:id="@+id/payNow_textView"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="@string/pay_now"
+                                android:textColor="@color/expedia_light_blue" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:background="@color/expedia_light_blue"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="20dp"
+                                    android:layout_height="wrap_content"
+                                    app:srcCompat="@drawable/check_white_icon" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="3dp"
+                                    android:text="@string/pay_later"
+                                    android:textColor="@color/background_default" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </FrameLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/roomList_recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+</LinearLayout>

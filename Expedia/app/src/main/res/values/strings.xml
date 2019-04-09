@@ -10,4 +10,11 @@
     <string name="deadline">"마감 특가 상품"</string>
     <string name="every_day_title">"일일 특가 상품"</string>
     <string name="every_day_subtitle">"매일 일부 호텔을 40% 이상 할인해 드려요. 본 특가 상품은 매일 밤 자정 변경되니 마음에 드는 호텔을 발견하시면 서둘러 예약해 주세요!"</string>
+    <string name="room_clean">"객실의 청결도"</string>
+    <string name="room_comfort">"객실의 안락함"</string>
+    <string name="room_service">"서비스 및 직원"</string>
+    <string name="hotel_status">"호텔 상태"</string>
+    <string name="free_cancel">"무료 취소"</string>
+    <string name="pay_later">"숙박 시 결제</string>
+    <string name="pay_now">"지금 결제"</string>
 </resources>

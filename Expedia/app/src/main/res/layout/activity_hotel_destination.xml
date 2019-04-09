@@ -20,7 +20,6 @@
             android:layout_height="50dp"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="20dp"
-            android:layout_weight="1"
             app:queryHint="목적지 입력"
             app:searchIcon="@null">
 
@@ -33,7 +32,6 @@
             android:layout_gravity="center_vertical"
             android:layout_margin="0dp"
             android:layout_marginStart="10dp"
-            android:layout_weight="0"
             android:padding="5dp"
             app:srcCompat="@drawable/back_icon" />
 
