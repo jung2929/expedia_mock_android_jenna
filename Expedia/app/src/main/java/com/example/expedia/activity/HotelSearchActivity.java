@@ -7,12 +7,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.expedia.dialog.CustomDialogListener;
 import com.example.expedia.dialog.HotelPersonNumDialog;
 import com.example.expedia.R;
 
@@ -27,8 +29,8 @@ public class HotelSearchActivity extends AppCompatActivity {
     String destinationData, date_start, date_end, person_num;
     Calendar calendar_start = Calendar.getInstance();
     Calendar calendar_end = Calendar.getInstance();
-    static public int adult, kid;
-    static public ArrayList<Integer> kidAge;
+    int adult, kid;
+    ArrayList<Integer> kidAge;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,13 +71,13 @@ public class HotelSearchActivity extends AppCompatActivity {
 
         //인원 수
         person = findViewById(R.id.person_text);
-        adult = 1;
-        kid = 0;
+
         kidAge = new ArrayList<>();
-        dialog = new HotelPersonNumDialog(this, dialogListener);
+        dialog = new HotelPersonNumDialog(this);
         person.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dialog.setDialogListener(dialogListener);
                 dialog.setCancelable(false);
                 dialog.show();
             }
@@ -98,9 +100,13 @@ public class HotelSearchActivity extends AppCompatActivity {
         }
     };
 
-    private Dialog.OnClickListener dialogListener = new DialogInterface.OnClickListener() {
+    private CustomDialogListener dialogListener = new CustomDialogListener() {
         @Override
-        public void onClick(DialogInterface dialog, int which) {
+        public void DialogListener(int adult, int kid, ArrayList<Integer> kidAge) {
+            HotelSearchActivity.this.adult = adult;
+            HotelSearchActivity.this.kid = kid;
+            HotelSearchActivity.this.kidAge = kidAge;
+            Log.d("TAG", "아동의 나이 : " + kidAge);
             int people = adult+kid;
             person_num = people +"명";
             person.setText(person_num);

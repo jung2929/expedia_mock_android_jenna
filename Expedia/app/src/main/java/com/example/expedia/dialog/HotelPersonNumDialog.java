@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,24 +20,35 @@ import com.example.expedia.R;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
-import static com.example.expedia.activity.HotelSearchActivity.adult;
-import static com.example.expedia.activity.HotelSearchActivity.kid;
-import static com.example.expedia.activity.HotelSearchActivity.kidAge;
-
-public class HotelPersonNumDialog extends Dialog {
+public class HotelPersonNumDialog extends Dialog{
     private Spinner spinner1, spinner2, spinner3, spinner4, spinner5, spinner6;
     private ImageView plus_active, plus_inactive, minus_active, minus_inactive, plus_active_kid, plus_inactive_kid, minus_active_kid, minus_inactive_kid;
     private TextView adultTextView, kidTextView, selectKidAge, complete;
     private String adultText, kidText;
     private LinearLayout one, two, three;
-    DialogInterface.OnClickListener listener;
-    ArrayAdapter<String> spinnerAdapter;
+    private int adult, kid;
+    private ArrayList<Integer> kidAge;
+    private ArrayAdapter<String> spinnerAdapter;
+    private CustomDialogListener dialogListener;
+
+    public HotelPersonNumDialog(@NonNull Context context){
+        super(context);
+        //this.listener = listener;
+    }
+
+    public void setDialogListener(CustomDialogListener dialogListener){
+        this.dialogListener = dialogListener;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.dialog_person_num);
 
+        adult = 1;
+        kid = 0;
+        kidAge = new ArrayList<>();
         spinner1 = findViewById(R.id.spinner);
         spinner2 = findViewById(R.id.spinner2);
         spinner3 = findViewById(R.id.spinner3);
@@ -70,7 +82,7 @@ public class HotelPersonNumDialog extends Dialog {
         complete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onClick(HotelPersonNumDialog.this, 0);
+                dialogListener.DialogListener(adult, kid, kidAge);
                 dismiss();
             }
         });
@@ -128,11 +140,6 @@ public class HotelPersonNumDialog extends Dialog {
 
     }
 
-    public HotelPersonNumDialog(@NonNull Context context, OnClickListener listener){
-        super(context);
-        this.listener = listener;
-    }
-
     private void checkAdultNum(int adult){
         if (adult == 1){
             minus_inactive.setVisibility(View.VISIBLE);
@@ -186,12 +193,30 @@ public class HotelPersonNumDialog extends Dialog {
                 two.setVisibility(View.GONE);
                 three.setVisibility(View.GONE);
                 kidAge.clear();
+
+
+                break;
+
+            case 1:
+                spinner1.setVisibility(View.VISIBLE);
+                spinner2.setVisibility(View.INVISIBLE);
+                spinner3.setVisibility(View.INVISIBLE);
+                spinner4.setVisibility(View.INVISIBLE);
+                spinner5.setVisibility(View.INVISIBLE);
+                spinner6.setVisibility(View.INVISIBLE);
+                one.setVisibility(View.VISIBLE);
+                two.setVisibility(View.GONE);
+                three.setVisibility(View.GONE);
+
+                if (kidAge.size() == 2){
+                    kidAge.remove(1);
+                }
                 spinner1.setAdapter(spinnerAdapter);
                 spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         if(kidAge.size() >= 1){
-                            kidAge.remove(0);
+                            kidAge.clear();
                         }
                         kidAge.add(0,position);
                     }
@@ -213,9 +238,11 @@ public class HotelPersonNumDialog extends Dialog {
 
                 break;
 
-            case 1:
+            case 2:
                 spinner1.setVisibility(View.VISIBLE);
-                spinner2.setVisibility(View.INVISIBLE);
+                spinner2.setVisibility(View.VISIBLE);
+                spinner2.setAdapter(spinnerAdapter);
+                spinner2.setSelection(10);
                 spinner3.setVisibility(View.INVISIBLE);
                 spinner4.setVisibility(View.INVISIBLE);
                 spinner5.setVisibility(View.INVISIBLE);
@@ -223,9 +250,8 @@ public class HotelPersonNumDialog extends Dialog {
                 one.setVisibility(View.VISIBLE);
                 two.setVisibility(View.GONE);
                 three.setVisibility(View.GONE);
-                spinner2.setAdapter(spinnerAdapter);
-                if (kidAge.size() == 2){
-                    kidAge.remove(1);
+                if (kidAge.size() == 3){
+                    kidAge.remove(2);
                 }
                 spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
@@ -249,24 +275,23 @@ public class HotelPersonNumDialog extends Dialog {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                spinner2.setSelection(10);
-
 
                 break;
 
-            case 2:
+            case 3:
                 spinner1.setVisibility(View.VISIBLE);
                 spinner2.setVisibility(View.VISIBLE);
-                spinner3.setVisibility(View.INVISIBLE);
+                spinner3.setVisibility(View.VISIBLE);
+                spinner3.setAdapter(spinnerAdapter);
+                spinner3.setSelection(10);
                 spinner4.setVisibility(View.INVISIBLE);
                 spinner5.setVisibility(View.INVISIBLE);
                 spinner6.setVisibility(View.INVISIBLE);
                 one.setVisibility(View.VISIBLE);
-                two.setVisibility(View.GONE);
+                two.setVisibility(View.VISIBLE);
                 three.setVisibility(View.GONE);
-                spinner3.setAdapter(spinnerAdapter);
-                if (kidAge.size() == 3){
-                    kidAge.remove(2);
+                if (kidAge.size() == 4){
+                    kidAge.remove(3);
                 }
                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
@@ -290,23 +315,24 @@ public class HotelPersonNumDialog extends Dialog {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                spinner3.setSelection(10);
+
 
                 break;
 
-            case 3:
+            case 4:
                 spinner1.setVisibility(View.VISIBLE);
                 spinner2.setVisibility(View.VISIBLE);
                 spinner3.setVisibility(View.VISIBLE);
-                spinner4.setVisibility(View.INVISIBLE);
+                spinner4.setVisibility(View.VISIBLE);
+                spinner4.setAdapter(spinnerAdapter);
+                spinner4.setSelection(10);
                 spinner5.setVisibility(View.INVISIBLE);
                 spinner6.setVisibility(View.INVISIBLE);
                 one.setVisibility(View.VISIBLE);
                 two.setVisibility(View.VISIBLE);
                 three.setVisibility(View.GONE);
-                spinner4.setAdapter(spinnerAdapter);
-                if (kidAge.size() == 4){
-                    kidAge.remove(3);
+                if (kidAge.size() == 5){
+                    kidAge.remove(4);
                 }
                 spinner4.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
@@ -330,24 +356,17 @@ public class HotelPersonNumDialog extends Dialog {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                spinner4.setSelection(10);
+
 
                 break;
 
-            case 4:
+            case 5:
                 spinner1.setVisibility(View.VISIBLE);
                 spinner2.setVisibility(View.VISIBLE);
                 spinner3.setVisibility(View.VISIBLE);
                 spinner4.setVisibility(View.VISIBLE);
-                spinner5.setVisibility(View.INVISIBLE);
-                spinner6.setVisibility(View.INVISIBLE);
-                one.setVisibility(View.VISIBLE);
-                two.setVisibility(View.VISIBLE);
-                three.setVisibility(View.GONE);
+                spinner5.setVisibility(View.VISIBLE);
                 spinner5.setAdapter(spinnerAdapter);
-                if (kidAge.size() == 5){
-                    kidAge.remove(4);
-                }
                 spinner5.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -370,25 +389,31 @@ public class HotelPersonNumDialog extends Dialog {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                spinner5.setSelection(10);
 
+                spinner5.setSelection(10);
+                spinner6.setVisibility(View.INVISIBLE);
+                one.setVisibility(View.VISIBLE);
+                two.setVisibility(View.VISIBLE);
+                three.setVisibility(View.VISIBLE);
+
+                if (kidAge.size() == 6){
+                    kidAge.remove(5);
+                }
 
                 break;
 
-            case 5:
+            case 6:
                 spinner1.setVisibility(View.VISIBLE);
                 spinner2.setVisibility(View.VISIBLE);
                 spinner3.setVisibility(View.VISIBLE);
                 spinner4.setVisibility(View.VISIBLE);
                 spinner5.setVisibility(View.VISIBLE);
-                spinner6.setVisibility(View.INVISIBLE);
+                spinner6.setVisibility(View.VISIBLE);
+                spinner6.setAdapter(spinnerAdapter);
+                spinner6.setSelection(10);
                 one.setVisibility(View.VISIBLE);
                 two.setVisibility(View.VISIBLE);
                 three.setVisibility(View.VISIBLE);
-                spinner6.setAdapter(spinnerAdapter);
-                if (kidAge.size() == 6){
-                    kidAge.remove(5);
-                }
                 spinner6.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -411,21 +436,6 @@ public class HotelPersonNumDialog extends Dialog {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                spinner6.setSelection(10);
-
-
-                break;
-
-            case 6:
-                spinner1.setVisibility(View.VISIBLE);
-                spinner2.setVisibility(View.VISIBLE);
-                spinner3.setVisibility(View.VISIBLE);
-                spinner4.setVisibility(View.VISIBLE);
-                spinner5.setVisibility(View.VISIBLE);
-                spinner6.setVisibility(View.VISIBLE);
-                one.setVisibility(View.VISIBLE);
-                two.setVisibility(View.VISIBLE);
-                three.setVisibility(View.VISIBLE);
                 break;
         }
     }
