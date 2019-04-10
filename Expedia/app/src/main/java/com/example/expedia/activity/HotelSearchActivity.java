@@ -105,8 +105,14 @@ public class HotelSearchActivity extends AppCompatActivity {
         public void DialogListener(int adult, int kid, ArrayList<Integer> kidAge) {
             HotelSearchActivity.this.adult = adult;
             HotelSearchActivity.this.kid = kid;
+            Log.d("TAG1", "아동의 나이 : " + kidAge);
+            if(kidAge.size() > kid){
+                for(int i=kidAge.size()-1; i >=kid; i--) {
+                    kidAge.remove(kid);
+                }
+            }
             HotelSearchActivity.this.kidAge = kidAge;
-            Log.d("TAG", "아동의 나이 : " + kidAge);
+            Log.d("TAG2", "아동의 나이 : " + kidAge);
             int people = adult+kid;
             person_num = people +"명";
             person.setText(person_num);

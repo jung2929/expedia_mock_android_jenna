@@ -41,6 +41,19 @@ public class HotelPersonNumDialog extends Dialog{
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        //java.lang.IndexOutOfBoundsException 방지
+        int k = kidAge.size();
+        if(k < 6){
+            for(int i = k; k<6; k++){
+                kidAge.add(i,10);
+            }
+        }
+
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -76,6 +89,36 @@ public class HotelPersonNumDialog extends Dialog{
 
         spinnerAdapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item,list);
         spinnerAdapter.setDropDownViewResource(R.layout.spinner_drop_down_item);
+        spinner1.setAdapter(spinnerAdapter);
+        spinner2.setAdapter(spinnerAdapter);
+        spinner3.setAdapter(spinnerAdapter);
+        spinner4.setAdapter(spinnerAdapter);
+        spinner5.setAdapter(spinnerAdapter);
+        spinner6.setAdapter(spinnerAdapter);
+        spinner1.setOnItemSelectedListener(listener1);
+        spinner2.setOnItemSelectedListener(listener2);
+        spinner3.setOnItemSelectedListener(listener3);
+        spinner4.setOnItemSelectedListener(listener4);
+        spinner5.setOnItemSelectedListener(listener5);
+        spinner6.setOnItemSelectedListener(listener6);
+        try {
+            Field popup = Spinner.class.getDeclaredField("mPopup");
+            popup.setAccessible(true);
+            ListPopupWindow window1 = (ListPopupWindow)popup.get(spinner1);
+            window1.setHeight(700); //pixel
+            ListPopupWindow window2 = (ListPopupWindow)popup.get(spinner2);
+            window2.setHeight(700); //pixel
+            ListPopupWindow window3 = (ListPopupWindow)popup.get(spinner3);
+            window3.setHeight(700); //pixel
+            ListPopupWindow window4 = (ListPopupWindow)popup.get(spinner4);
+            window4.setHeight(700); //pixel
+            ListPopupWindow window5 = (ListPopupWindow)popup.get(spinner5);
+            window5.setHeight(700); //pixel
+            ListPopupWindow window6 = (ListPopupWindow)popup.get(spinner6);
+            window6.setHeight(700); //pixel
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         selectKidAge = findViewById(R.id.select_age);
         complete = findViewById(R.id.complete);
@@ -123,6 +166,27 @@ public class HotelPersonNumDialog extends Dialog{
                 kidTextView.setText(kidText);
                 checkKidNum(kid);
                 checkSpinner(kid);
+                switch (kid){
+                    case 1:
+                        spinner1.setSelection(10);
+                        break;
+                    case 2:
+                        spinner2.setSelection(10);
+                        break;
+                    case 3:
+                        spinner3.setSelection(10);
+                        break;
+                    case 4:
+                        spinner4.setSelection(10);
+                        break;
+                    case 5:
+                        spinner5.setSelection(10);
+                        break;
+                    case 6:
+                        spinner6.setSelection(10);
+                        break;
+                }
+
             }
         });
         minus_active_kid.setOnClickListener(new View.OnClickListener() {
@@ -192,9 +256,6 @@ public class HotelPersonNumDialog extends Dialog{
                 one.setVisibility(View.GONE);
                 two.setVisibility(View.GONE);
                 three.setVisibility(View.GONE);
-                kidAge.clear();
-
-
                 break;
 
             case 1:
@@ -207,42 +268,11 @@ public class HotelPersonNumDialog extends Dialog{
                 one.setVisibility(View.VISIBLE);
                 two.setVisibility(View.GONE);
                 three.setVisibility(View.GONE);
-
-                if (kidAge.size() == 2){
-                    kidAge.remove(1);
-                }
-                spinner1.setAdapter(spinnerAdapter);
-                spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        if(kidAge.size() >= 1){
-                            kidAge.clear();
-                        }
-                        kidAge.add(0,position);
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-
-                    }
-                });
-                try {
-                    Field popup = Spinner.class.getDeclaredField("mPopup");
-                    popup.setAccessible(true);
-                    ListPopupWindow window = (ListPopupWindow)popup.get(spinner1);
-                    window.setHeight(700); //pixel
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                spinner1.setSelection(10);
-
                 break;
 
             case 2:
                 spinner1.setVisibility(View.VISIBLE);
                 spinner2.setVisibility(View.VISIBLE);
-                spinner2.setAdapter(spinnerAdapter);
-                spinner2.setSelection(10);
                 spinner3.setVisibility(View.INVISIBLE);
                 spinner4.setVisibility(View.INVISIBLE);
                 spinner5.setVisibility(View.INVISIBLE);
@@ -250,73 +280,18 @@ public class HotelPersonNumDialog extends Dialog{
                 one.setVisibility(View.VISIBLE);
                 two.setVisibility(View.GONE);
                 three.setVisibility(View.GONE);
-                if (kidAge.size() == 3){
-                    kidAge.remove(2);
-                }
-                spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        if(kidAge.size() >= 2 ){
-                            kidAge.remove(1);
-                        }
-                        kidAge.add(1, position);
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-
-                    }
-                });
-                try {
-                    Field popup = Spinner.class.getDeclaredField("mPopup");
-                    popup.setAccessible(true);
-                    ListPopupWindow window = (ListPopupWindow)popup.get(spinner2);
-                    window.setHeight(700); //pixel
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
                 break;
 
             case 3:
                 spinner1.setVisibility(View.VISIBLE);
                 spinner2.setVisibility(View.VISIBLE);
                 spinner3.setVisibility(View.VISIBLE);
-                spinner3.setAdapter(spinnerAdapter);
-                spinner3.setSelection(10);
                 spinner4.setVisibility(View.INVISIBLE);
                 spinner5.setVisibility(View.INVISIBLE);
                 spinner6.setVisibility(View.INVISIBLE);
                 one.setVisibility(View.VISIBLE);
                 two.setVisibility(View.VISIBLE);
                 three.setVisibility(View.GONE);
-                if (kidAge.size() == 4){
-                    kidAge.remove(3);
-                }
-                spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        if(kidAge.size() >= 3 ){
-                            kidAge.remove(2);
-                        }
-                        kidAge.add(2, position);
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-
-                    }
-                });
-                try {
-                    Field popup = Spinner.class.getDeclaredField("mPopup");
-                    popup.setAccessible(true);
-                    ListPopupWindow window = (ListPopupWindow)popup.get(spinner3);
-                    window.setHeight(700); //pixel
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-
                 break;
 
             case 4:
@@ -324,40 +299,11 @@ public class HotelPersonNumDialog extends Dialog{
                 spinner2.setVisibility(View.VISIBLE);
                 spinner3.setVisibility(View.VISIBLE);
                 spinner4.setVisibility(View.VISIBLE);
-                spinner4.setAdapter(spinnerAdapter);
-                spinner4.setSelection(10);
                 spinner5.setVisibility(View.INVISIBLE);
                 spinner6.setVisibility(View.INVISIBLE);
                 one.setVisibility(View.VISIBLE);
                 two.setVisibility(View.VISIBLE);
                 three.setVisibility(View.GONE);
-                if (kidAge.size() == 5){
-                    kidAge.remove(4);
-                }
-                spinner4.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        if(kidAge.size() >= 4 ){
-                            kidAge.remove(3);
-                        }
-                        kidAge.add(3, position);
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-
-                    }
-                });
-                try {
-                    Field popup = Spinner.class.getDeclaredField("mPopup");
-                    popup.setAccessible(true);
-                    ListPopupWindow window = (ListPopupWindow)popup.get(spinner4);
-                    window.setHeight(700); //pixel
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-
                 break;
 
             case 5:
@@ -366,40 +312,10 @@ public class HotelPersonNumDialog extends Dialog{
                 spinner3.setVisibility(View.VISIBLE);
                 spinner4.setVisibility(View.VISIBLE);
                 spinner5.setVisibility(View.VISIBLE);
-                spinner5.setAdapter(spinnerAdapter);
-                spinner5.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        if(kidAge.size() >= 5){
-                            kidAge.remove(4);
-                        }
-                        kidAge.add(4, position);
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-
-                    }
-                });
-                try {
-                    Field popup = Spinner.class.getDeclaredField("mPopup");
-                    popup.setAccessible(true);
-                    ListPopupWindow window = (ListPopupWindow)popup.get(spinner5);
-                    window.setHeight(700); //pixel
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                spinner5.setSelection(10);
                 spinner6.setVisibility(View.INVISIBLE);
                 one.setVisibility(View.VISIBLE);
                 two.setVisibility(View.VISIBLE);
                 three.setVisibility(View.VISIBLE);
-
-                if (kidAge.size() == 6){
-                    kidAge.remove(5);
-                }
-
                 break;
 
             case 6:
@@ -409,35 +325,94 @@ public class HotelPersonNumDialog extends Dialog{
                 spinner4.setVisibility(View.VISIBLE);
                 spinner5.setVisibility(View.VISIBLE);
                 spinner6.setVisibility(View.VISIBLE);
-                spinner6.setAdapter(spinnerAdapter);
-                spinner6.setSelection(10);
                 one.setVisibility(View.VISIBLE);
                 two.setVisibility(View.VISIBLE);
                 three.setVisibility(View.VISIBLE);
-                spinner6.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        if(kidAge.size() == 6 ){
-                            kidAge.remove(5);
-                        }
-                        kidAge.add(5, position);
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-
-                    }
-                });
-                try {
-                    Field popup = Spinner.class.getDeclaredField("mPopup");
-                    popup.setAccessible(true);
-                    ListPopupWindow window = (ListPopupWindow)popup.get(spinner6);
-                    window.setHeight(700); //pixel
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
                 break;
         }
     }
 
+    private AdapterView.OnItemSelectedListener listener1 = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            if(kidAge.size() >= 1){
+                kidAge.remove(0);
+            }
+            kidAge.add(0,position);
+        }
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+        }
+    };
+
+    private AdapterView.OnItemSelectedListener listener2 = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            if(kidAge.size() >= 2 ){
+                kidAge.remove(1);
+            }
+            kidAge.add(1, position);
+        }
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+        }
+    };
+
+    private AdapterView.OnItemSelectedListener listener3 = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            if(kidAge.size() >= 3 ){
+                kidAge.remove(2);
+            }
+            kidAge.add(2, position);
+        }
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+        }
+    };
+
+    private AdapterView.OnItemSelectedListener listener4 = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            if(kidAge.size() >= 4 ){
+                kidAge.remove(3);
+            }
+            kidAge.add(3, position);
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    };
+
+    private AdapterView.OnItemSelectedListener listener5 = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            if(kidAge.size() >= 5){
+                kidAge.remove(4);
+            }
+            kidAge.add(4, position);
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    };
+
+    private AdapterView.OnItemSelectedListener listener6 = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            if(kidAge.size() >= 6){
+                kidAge.remove(5);
+            }
+            kidAge.add(5, position);
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    };
 }
