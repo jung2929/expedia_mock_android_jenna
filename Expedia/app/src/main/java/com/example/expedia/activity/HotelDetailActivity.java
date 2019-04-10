@@ -11,6 +11,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -23,7 +24,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.expedia.R;
+import com.example.expedia.adapter.HotelDetailServiceListRVAdapter;
 import com.example.expedia.adapter.HotelDetailUVPAdapter;
+import com.example.expedia.sampledata.ServiceListDataSample;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -39,12 +42,14 @@ import java.util.ArrayList;
 
 public class HotelDetailActivity extends AppCompatActivity implements OnMapReadyCallback{
     private NestedScrollView scrollView;
+    private HotelDetailServiceListRVAdapter hdslAdapter = new HotelDetailServiceListRVAdapter();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_detail);
         Intent intent = getIntent();
         String hotelName = intent.getStringExtra("name");
+        Toast.makeText(HotelDetailActivity.this, hotelName, Toast.LENGTH_LONG).show();
         //--------------------------- 상단 바 ---------------------------------//
         ImageView backImage = findViewById(R.id.cancel_btn);
         backImage.setOnClickListener(new View.OnClickListener() {
@@ -55,10 +60,16 @@ public class HotelDetailActivity extends AppCompatActivity implements OnMapReady
         });
         ImageView ivShare = findViewById(R.id.share_imageView);
         ivShare.setColorFilter(R.color.expedia_light_blue, PorterDuff.Mode.SRC_IN);
+        ivShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(HotelDetailActivity.this, "공유하기", Toast.LENGTH_SHORT).show();
+            }
+        });
         TextView tvHotelName = findViewById(R.id.hotelName_textView);
         tvHotelName.setText(hotelName);
         RatingBar rbHotelRating = findViewById(R.id.ratingBar);
-        float rate = (float)4.2;
+        float rate = (float)4.3;
         rbHotelRating.setRating(rate);
 
         //--------------------------- 스크롤 뷰 ---------------------------------//
@@ -74,8 +85,8 @@ public class HotelDetailActivity extends AppCompatActivity implements OnMapReady
         imageList.add(R.drawable.hotel_list);
         imageList.add(R.drawable.hotel_list);
         imageList.add(R.drawable.hotel_list);
-        PagerAdapter adapter = new HotelDetailUVPAdapter(false, imageList);
-        vpHotelImage.setAdapter(adapter);
+        PagerAdapter uvpAdapter = new HotelDetailUVPAdapter(false, imageList);
+        vpHotelImage.setAdapter(uvpAdapter);
         //initialize built-in indicator
         vpHotelImage.initIndicator();
         //set style of indicators
@@ -165,8 +176,15 @@ public class HotelDetailActivity extends AppCompatActivity implements OnMapReady
             }
         });
 
-        RecyclerView rvOption = findViewById(R.id.option_recyclerView);
 
+        RecyclerView rvServicesList = findViewById(R.id.option_recyclerView);
+        LinearLayoutManager mllm = new LinearLayoutManager(HotelDetailActivity.this);
+        mllm.setOrientation(LinearLayoutManager.HORIZONTAL);
+        rvServicesList.setLayoutManager(mllm);
+        rvServicesList.setAdapter(hdslAdapter);
+        hdslAdapter.setItems(new ServiceListDataSample().getItems());
+
+        //---------------------------------구글 맵--------------------------//
         FragmentManager fragmentManager = getFragmentManager();
         MapFragment mapFragment = (MapFragment)fragmentManager
                 .findFragmentById(R.id.map_fragment);
@@ -199,9 +217,10 @@ public class HotelDetailActivity extends AppCompatActivity implements OnMapReady
                 llPayLaterActive.setVisibility(View.VISIBLE);
             }
         });
+
+        //------------------------------ 방 정보 -----------------------------//
         RecyclerView rvRoomList = findViewById(R.id.roomList_recyclerView);
 
-        Toast.makeText(HotelDetailActivity.this, hotelName, Toast.LENGTH_LONG).show();
     }
 
     @Override

@@ -265,16 +265,16 @@
 
                     <RatingBar
                         android:id="@+id/clean_ratingBar"
-                        style="@android:style/Widget.DeviceDefault.RatingBar.Small"
+                        style="@style/Widget.AppCompat.RatingBar.Small"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_marginTop="3dp"
                         android:isIndicator="true"
                         android:numStars="5"
-                        tools:rating="4.2"
                         android:stepSize="0.1"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/clean_textView" />
+                        app:layout_constraintTop_toBottomOf="@+id/clean_textView"
+                        tools:rating="4.2" />
 
                     <TextView
                         android:id="@+id/clean_rating_textView"
@@ -306,16 +306,16 @@
 
                     <RatingBar
                         android:id="@+id/comfort_ratingBar"
-                        style="@android:style/Widget.DeviceDefault.RatingBar.Small"
+                        style="@style/Widget.AppCompat.RatingBar.Small"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_marginTop="3dp"
                         android:isIndicator="true"
                         android:numStars="5"
-                        tools:rating="4.2"
                         android:stepSize="0.1"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/comfort_textView" />
+                        app:layout_constraintTop_toBottomOf="@+id/comfort_textView"
+                        tools:rating="4.2" />
 
                     <TextView
                         android:id="@+id/comfort_rating_textView"
@@ -357,16 +357,16 @@
 
                     <RatingBar
                         android:id="@+id/service_ratingBar"
-                        style="@android:style/Widget.DeviceDefault.RatingBar.Small"
+                        style="@style/Widget.AppCompat.RatingBar.Small"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_marginTop="3dp"
                         android:isIndicator="true"
                         android:numStars="5"
-                        tools:rating="4.2"
                         android:stepSize="0.1"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/service_textView" />
+                        app:layout_constraintTop_toBottomOf="@+id/service_textView"
+                        tools:rating="4.2" />
 
                     <TextView
                         android:id="@+id/service_rating_textView"
@@ -398,16 +398,16 @@
 
                     <RatingBar
                         android:id="@+id/hotelStatus_ratingBar"
-                        style="@android:style/Widget.DeviceDefault.RatingBar.Small"
+                        style="@style/Widget.AppCompat.RatingBar.Small"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_marginTop="3dp"
                         android:isIndicator="true"
                         android:numStars="5"
-                        tools:rating="4.2"
                         android:stepSize="0.1"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/hotelStatus_textView" />
+                        app:layout_constraintTop_toBottomOf="@+id/hotelStatus_textView"
+                        tools:rating="4.2" />
 
                     <TextView
                         android:id="@+id/hotelStatus_rating_textView"
@@ -503,11 +503,13 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/option_recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="50dp" />
+                android:layout_height="60dp"
+                android:layout_marginStart="5dp" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.3dp"
+                android:layout_marginBottom="10dp"
                 android:background="@color/divider" />
 
 
@@ -536,9 +538,9 @@
 
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginEnd="15dp"
+                    android:layout_height="55dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     app:cardCornerRadius="5dp"
                     app:cardUseCompatPadding="true">
 
