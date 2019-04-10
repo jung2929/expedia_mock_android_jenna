@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@color/background_default"
     android:orientation="vertical"
     tools:context=".fragment.MainPlanFragment">
 
@@ -13,14 +13,14 @@
         android:layout_height="50dp"
         android:layout_marginStart="15dp"
         android:gravity="center_vertical|start"
-        android:text="계정"
-        android:textColor="#000066"
+        android:text="@string/account"
+        android:textColor="@color/expedia_darkblue"
         android:textSize="18sp" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#999999" />
+        android:background="@color/divider" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,14 +30,28 @@
         android:background="@color/expedia_background"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/button"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@drawable/corner_round"
-            android:text="Expedia 계정으로 로그인"
-            android:textSize="18sp" />
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/login_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/corner_round"
+                android:text="@string/login_expedia_account"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/logout_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/corner_round"
+                android:text="@string/logout"
+                android:textSize="18sp" />
+        </FrameLayout>
 
     </LinearLayout>
 

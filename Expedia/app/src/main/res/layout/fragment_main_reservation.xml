@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 app:cardCornerRadius="5dp"
-                app:cardBackgroundColor="#FFFFFF"
+                app:cardBackgroundColor="@color/background_default"
                 app:cardUseCompatPadding="true">
 
                 <LinearLayout
@@ -81,25 +81,35 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                app:cardBackgroundColor="#FFFFFF"
+                app:cardBackgroundColor="@color/background_default"
                 app:cardCornerRadius="5dp"
                 app:cardUseCompatPadding="true">
 
                 <ImageView
-                    android:id="@+id/imageView8"
+                    android:id="@+id/login_imageView"
                     android:layout_width="wrap_content"
                     android:layout_height="148dp"
-                    android:src="@drawable/login_or_sigin_up" />
+                    android:src="@drawable/login_or_sigin_up"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/afterLogin_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/after_login"
+                    android:textColor="@color/expedia_darkblue" />
 
             </android.support.v7.widget.CardView>
 
             <TextView
-                android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:text="추천 여행지 및 상품"
-                android:textColor="@color/expedia_blue"
+                android:text="@string/recommend_location_product"
+                android:textColor="@color/expedia_darkblue"
                 android:textSize="18sp" />
 
             <android.support.v7.widget.RecyclerView

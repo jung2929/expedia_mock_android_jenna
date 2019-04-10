@@ -18,4 +18,17 @@
     <string name="pay_later">"숙박 시 결제</string>
     <string name="pay_now">"지금 결제"</string>
     <string name="more_image">"모두 보기"</string>
+    <string name="callback_error">"오류가 발생했습니다. 잠시 후 다시 시도해주세요"</string>
+    <string name="after_login">"앱에서는 모든 예약 시 포인트가 두 배로 적립됩니다!"</string>
+    <string name="recommend_location_product">"추천 여행지 및 상품"</string>
+    <string name="account">"계정"</string>
+    <string name="login_expedia_account">"Expedia 계정으로 로그인"</string>
+    <string name="logout">"로그아웃"</string>
+    <string name="plan">"일정"</string>
+    <string name="login_to_check_plan">"예정된 일정을 확인하려면 로그인 하세요."</string>
+    <string name="or">"또는"</string>
+    <string name="find_by_reservation_number">"로그인하지 않고 예약하셨나요? 일정번호로 예약을 찾으실 수 있어요."</string>
+    <string name="plus_plan_self">"비회원 예약 직접 추가하기"</string>
+    <string name="refresh_plan">"여행 새로 고침하기"</string>
+    <string name="no_plan">"예정된 여행이 없습니다."</string>
 </resources>

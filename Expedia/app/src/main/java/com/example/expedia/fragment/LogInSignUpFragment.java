@@ -21,7 +21,9 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+import com.example.expedia.MyApplication;
 import com.example.expedia.R;
+import com.example.expedia.activity.MainActivity;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -70,7 +72,7 @@ public class LogInSignUpFragment extends Fragment {
                 object.addProperty("Name", Name);
                 json = body.toJson(object);
                 sendData();
-                getActivity().finish();
+                activity.finish();
             }
         });
 
@@ -96,7 +98,7 @@ public class LogInSignUpFragment extends Fragment {
 
     /** 웹 서버로 데이터 전송 */
     private void sendData() {
-// 네트워크 통신하는 작업은 무조건 작업스레드를 생성해서 호출 해줄 것!!
+    // 네트워크 통신하는 작업은 무조건 작업스레드를 생성해서 호출 해줄 것!!
         new Thread() {
             public void run() {
                 httpConn.requestWebServer(callback);
@@ -108,7 +110,7 @@ public class LogInSignUpFragment extends Fragment {
         @Override
         public void onFailure(@NonNull Call call, IOException e) {
             Log.d(TAG, "콜백오류:"+e.getMessage());
-            message = "오류가 발생했습니다. 잠시 후 다시 시도해 주세요";
+            message = activity.getResources().getString(R.string.callback_error);
             Log.d(TAG, "message:"+message);
             activity.runOnUiThread(new Runnable() {
                 public void run() {
@@ -124,16 +126,15 @@ public class LogInSignUpFragment extends Fragment {
             if(element.getAsJsonObject().get("code") != null){
                 message = element.getAsJsonObject().get("message").getAsString();
                 Log.d(TAG, "message:"+message);
+                activity.runOnUiThread(new Runnable() {
+                    public void run() {
+                        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+                    }
+                });
             }else{
-                message = "회원가입이 완료되었습니다. 로그인 후 사용해 주세요";
-                Log.d(TAG, "message:"+message);
+                MyApplication.setLogInStatus(true);
             }
             Log.d(TAG, "서버에서 응답한 Body:"+element);
-            activity.runOnUiThread(new Runnable() {
-                public void run() {
-                    Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
-                }
-            });
         }
     };
 }

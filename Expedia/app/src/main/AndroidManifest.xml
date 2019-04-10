@@ -3,6 +3,7 @@
     package="com.example.expedia">
     <uses-permission android:name="android.permission.INTERNET" />
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/expedia_logo"
         android:label="@string/app_name"
@@ -30,6 +31,7 @@
         <activity android:name=".activity.RecommendHotelListActivity"/>
         <activity android:name=".activity.HotelDetailActivity"/>
         <activity android:name=".activity.SearchHotelListActivity"/>
+        <activity android:name=".activity.EmptyActivity"/>
     </application>
 
 </manifest>
