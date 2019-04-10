@@ -1,5 +1,6 @@
 package com.example.expedia.activity;
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
@@ -18,11 +19,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.expedia.R;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.w3c.dom.Text;
 
-public class HotelDetailActivity extends AppCompatActivity {
+public class HotelDetailActivity extends AppCompatActivity implements OnMapReadyCallback{
     private NestedScrollView scrollView;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,6 +50,8 @@ public class HotelDetailActivity extends AppCompatActivity {
         TextView tvHotelName = findViewById(R.id.hotelName_textView);
         tvHotelName.setText(hotelName);
         RatingBar rbHotelRating = findViewById(R.id.ratingBar);
+        float rate = (float)4.2;
+        rbHotelRating.setRating(rate);
 
         //------------------------- 스크롤 뷰 ---------------------------------
         scrollView = findViewById(R.id.scrollView);
@@ -91,7 +100,7 @@ public class HotelDetailActivity extends AppCompatActivity {
             }
         });
         RatingBar rbClean = findViewById(R.id.clean_ratingBar);
-        float rate = (float)4.2;
+        rate = (float)4.2;
         rbClean.setRating(rate);
         TextView tvCleanRating = findViewById(R.id.clean_rating_textView);
         string = Float.toString(rate);
@@ -125,8 +134,17 @@ public class HotelDetailActivity extends AppCompatActivity {
 
         RecyclerView rvOption = findViewById(R.id.option_recyclerView);
 
-        MapView mapView = findViewById(R.id.mapView);
+        FragmentManager fragmentManager = getFragmentManager();
+        MapFragment mapFragment = (MapFragment)fragmentManager
+                .findFragmentById(R.id.map_fragment);
+        mapFragment.getMapAsync(this);
+        View mapFix = findViewById(R.id.mapFix_view);
+        mapFix.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
         final LinearLayout llPayNowActive = findViewById(R.id.payNowActive_layout);
         final LinearLayout llPayLaterActive = findViewById(R.id.payLaterActive_layout);
         TextView llPayNow = findViewById(R.id.payNow_textView);
@@ -151,5 +169,17 @@ public class HotelDetailActivity extends AppCompatActivity {
         RecyclerView rvRoomList = findViewById(R.id.roomList_recyclerView);
 
         Toast.makeText(HotelDetailActivity.this, hotelName, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        LatLng SEOUL = new LatLng(37.56, 126.97);
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(SEOUL);
+        //markerOptions.title("서울");
+        //markerOptions.snippet("한국의 수도");
+        googleMap.addMarker(markerOptions);
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(SEOUL));
+        googleMap.animateCamera(CameraUpdateFactory.zoomTo(13));
     }
 }

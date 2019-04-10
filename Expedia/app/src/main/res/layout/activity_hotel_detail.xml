@@ -48,7 +48,7 @@
                 android:isIndicator="true"
                 android:max="5"
                 android:numStars="5"
-                android:rating="4.5"
+                tools:rating="4.5"
                 android:stepSize="0.5" />
         </LinearLayout>
 
@@ -510,10 +510,23 @@
                 android:layout_height="0.3dp"
                 android:background="@color/divider" />
 
-            <com.google.android.gms.maps.MapView
-                android:id="@+id/mapView"
+
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp" />
+                android:layout_height="wrap_content">
+
+                <fragment
+                    android:id="@+id/map_fragment"
+                    class="com.google.android.gms.maps.MapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp" />
+                <View
+                    android:id="@+id/mapFix_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:background="@null"/>
+
+            </FrameLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
