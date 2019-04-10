@@ -2,14 +2,18 @@ package com.example.expedia.activity;
 
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.expedia.R;
+import com.example.expedia.adapter.HotelDetailUVPAdapter;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -26,8 +31,11 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.tmall.ultraviewpager.UltraViewPager;
 
 import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 
 public class HotelDetailActivity extends AppCompatActivity implements OnMapReadyCallback{
     private NestedScrollView scrollView;
@@ -37,7 +45,7 @@ public class HotelDetailActivity extends AppCompatActivity implements OnMapReady
         setContentView(R.layout.activity_hotel_detail);
         Intent intent = getIntent();
         String hotelName = intent.getStringExtra("name");
-        //------------------------ 상단 바 ---------------------------------
+        //--------------------------- 상단 바 ---------------------------------//
         ImageView backImage = findViewById(R.id.cancel_btn);
         backImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,10 +61,35 @@ public class HotelDetailActivity extends AppCompatActivity implements OnMapReady
         float rate = (float)4.2;
         rbHotelRating.setRating(rate);
 
-        //------------------------- 스크롤 뷰 ---------------------------------
+        //--------------------------- 스크롤 뷰 ---------------------------------//
         scrollView = findViewById(R.id.scrollView);
-        ViewPager vpHotelImage = findViewById(R.id.hotelImage_viewPager);
 
+        //--------------------------울트라 뷰페이져-----------------------------//
+        //ViewPager vpHotelImage = findViewById(R.id.hotelImage_viewPager);
+        UltraViewPager vpHotelImage = findViewById(R.id.hotelImage_viewPager);
+        vpHotelImage.setScrollMode(UltraViewPager.ScrollMode.HORIZONTAL);
+        //initialize UltraPagerAdapter，and add child view to UltraViewPager
+        ArrayList<Integer> imageList = new ArrayList<>();
+        imageList.add(R.drawable.hotel_list);
+        imageList.add(R.drawable.hotel_list);
+        imageList.add(R.drawable.hotel_list);
+        imageList.add(R.drawable.hotel_list);
+        PagerAdapter adapter = new HotelDetailUVPAdapter(false, imageList);
+        vpHotelImage.setAdapter(adapter);
+        //initialize built-in indicator
+        vpHotelImage.initIndicator();
+        //set style of indicators
+        vpHotelImage.getIndicator()
+                .setOrientation(UltraViewPager.Orientation.HORIZONTAL)
+                .setFocusColor(Color.WHITE)
+                .setNormalColor(Color.GRAY)
+                .setRadius((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3, getResources().getDisplayMetrics()));
+        //set the alignment
+        vpHotelImage.getIndicator().setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM);
+        vpHotelImage.getIndicator().setMargin(0,0,0,20);
+        //construct built-in indicator, and add it to  UltraViewPager
+        vpHotelImage.getIndicator().build();
+        //------------------------------------뷰 페이져 끝 ------------------------------------//
 
         TextView tvSale = findViewById(R.id.sale_textView);
         String string = "-75%";
@@ -69,7 +102,7 @@ public class HotelDetailActivity extends AppCompatActivity implements OnMapReady
         llEditPeriod.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(HotelDetailActivity.this, "기간 수정 기능", Toast.LENGTH_LONG).show();
+                Toast.makeText(HotelDetailActivity.this, "기간 수정 기능", Toast.LENGTH_SHORT).show();
             }
         });
         TextView tvPeriod = findViewById(R.id.period_textView);
@@ -96,7 +129,7 @@ public class HotelDetailActivity extends AppCompatActivity implements OnMapReady
         tvReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(HotelDetailActivity.this, "후기로 연결", Toast.LENGTH_LONG).show();
+                Toast.makeText(HotelDetailActivity.this, "후기로 연결", Toast.LENGTH_SHORT).show();
             }
         });
         RatingBar rbClean = findViewById(R.id.clean_ratingBar);
@@ -128,7 +161,7 @@ public class HotelDetailActivity extends AppCompatActivity implements OnMapReady
         llPayLaterInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(HotelDetailActivity.this, "안내사항 액티비티",Toast.LENGTH_LONG).show();
+                Toast.makeText(HotelDetailActivity.this, "안내사항 액티비티",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -176,8 +209,6 @@ public class HotelDetailActivity extends AppCompatActivity implements OnMapReady
         LatLng SEOUL = new LatLng(37.56, 126.97);
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(SEOUL);
-        //markerOptions.title("서울");
-        //markerOptions.snippet("한국의 수도");
         googleMap.addMarker(markerOptions);
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(SEOUL));
         googleMap.animateCamera(CameraUpdateFactory.zoomTo(13));
