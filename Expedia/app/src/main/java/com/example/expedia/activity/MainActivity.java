@@ -8,22 +8,28 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.example.expedia.MyApplication;
 import com.example.expedia.adapter.MainPageAdapter;
 import com.example.expedia.R;
+import com.example.expedia.fragment.MainPlanFragment;
+import com.example.expedia.fragment.MainReservationFragment;
 
 public class MainActivity extends AppCompatActivity {
 
 
     private ViewPager viewPager;
     MenuItem prevMenuItem;
+    private boolean prev_loginStatus;
+    private MainPageAdapter mpa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        prev_loginStatus = MyApplication.isLogInStatus();
         viewPager = findViewById(R.id.MainViewPager);
-        MainPageAdapter mpa = new MainPageAdapter(getSupportFragmentManager(), 3);
+        mpa = new MainPageAdapter(getSupportFragmentManager(), 3);
         viewPager.setAdapter(mpa);
         viewPager.setOffscreenPageLimit(3);
         final BottomNavigationView navigation = findViewById(R.id.navigation);
@@ -35,6 +41,14 @@ public class MainActivity extends AppCompatActivity {
             }
             @Override
             public void onPageSelected(int i) {
+                if(prev_loginStatus != MyApplication.isLogInStatus()){
+                    MainReservationFragment mainReservationFragment = (MainReservationFragment)getSupportFragmentManager().findFragmentByTag("android:switcher:"+viewPager.getId()+":"+mpa.getItemId(0));
+                    mainReservationFragment.checkLoginStatus();
+                    MainPlanFragment mainPlanFragment = (MainPlanFragment)getSupportFragmentManager().findFragmentByTag("android:switcher:"+viewPager.getId()+":"+mpa.getItemId(1));
+                    mainPlanFragment.checkLoginStatus();
+                    prev_loginStatus = MyApplication.isLogInStatus();
+                }
+
                 if (prevMenuItem != null) {
                     prevMenuItem.setChecked(false);
                 }
@@ -73,4 +87,10 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     };
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        prev_loginStatus = MyApplication.isLogInStatus();
+    }
 }

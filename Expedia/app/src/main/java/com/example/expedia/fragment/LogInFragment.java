@@ -3,7 +3,6 @@ package com.example.expedia.fragment;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,7 +19,6 @@ import android.widget.Toast;
 
 import com.example.expedia.MyApplication;
 import com.example.expedia.R;
-import com.example.expedia.activity.EmptyActivity;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -162,7 +160,6 @@ public class LogInFragment extends Fragment {
                 editor.putString("jwt",token);
                 editor.apply();
                 MyApplication.setLogInStatus(true);
-                activity.startActivity(new Intent(activity, EmptyActivity.class));
                 activity.finish();
             }
             Log.d(TAG, "서버에서 응답한 Body:"+element);

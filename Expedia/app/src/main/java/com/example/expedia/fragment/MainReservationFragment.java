@@ -1,21 +1,18 @@
 package com.example.expedia.fragment;
 
 
-import android.app.Activity;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.expedia.MyApplication;
@@ -36,6 +33,7 @@ public class MainReservationFragment extends Fragment {
     private TextView tvAfterLogin;
     private MainRecommendationRVAdapter adapter = new MainRecommendationRVAdapter();
     private NestedScrollView scrollView;
+    private boolean prev_loginStatus;
 
     public MainReservationFragment() {
         // Required empty public constructor
@@ -46,6 +44,7 @@ public class MainReservationFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main_reservation, container, false);
 
+        prev_loginStatus = MyApplication.isLogInStatus();
         scrollView = view.findViewById(R.id.scrollView);
         RecyclerView recyclerView = view.findViewById(R.id.Main_category_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -81,6 +80,7 @@ public class MainReservationFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        checkLoginStatus();
 
         return view;
     }
@@ -88,7 +88,11 @@ public class MainReservationFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        checkLoginStatus();
+        Log.e("TAG", "이전 상태"+prev_loginStatus);
+        Log.e("TAG2","현재 상태"+MyApplication.isLogInStatus());
+        if(prev_loginStatus != MyApplication.isLogInStatus()) {
+            checkLoginStatus();
+        }
     }
 
     public void checkLoginStatus(){
@@ -99,12 +103,17 @@ public class MainReservationFragment extends Fragment {
             ivLoginImage.setVisibility(View.VISIBLE);
             tvAfterLogin.setVisibility(View.GONE);
         }
-        scrollView.post(new Runnable(){
-            @Override
-            public void run(){
-                scrollView.fullScroll(NestedScrollView.FOCUS_UP);
-            }
-        });
+        scrollView.postDelayed(scrollRun, 300);
+        prev_loginStatus = MyApplication.isLogInStatus();
     }
+
+    private Runnable scrollRun = new Runnable() {
+        @Override
+        public void run() {
+            scrollView.fullScroll(NestedScrollView.FOCUS_UP);
+        }
+    };
+
+
 
 }

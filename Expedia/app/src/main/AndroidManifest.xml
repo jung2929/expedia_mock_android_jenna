@@ -31,7 +31,6 @@
         <activity android:name=".activity.RecommendHotelListActivity"/>
         <activity android:name=".activity.HotelDetailActivity"/>
         <activity android:name=".activity.SearchHotelListActivity"/>
-        <activity android:name=".activity.EmptyActivity"/>
     </application>
 
 </manifest>

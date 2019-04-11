@@ -19,7 +19,6 @@ import android.widget.Toast;
 
 import com.example.expedia.MyApplication;
 import com.example.expedia.R;
-import com.example.expedia.activity.EmptyActivity;
 import com.example.expedia.activity.LogInActivity;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -28,10 +27,8 @@ import java.io.IOException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 
 import static android.support.constraint.Constraints.TAG;
@@ -72,8 +69,7 @@ public class MainAccountFragment extends Fragment {
                 MyApplication.setLogInStatus(false);
                 btnLogin.setVisibility(View.VISIBLE);
                 btnLogout.setVisibility(View.INVISIBLE);
-                //startActivity(new Intent(getActivity(), EmptyActivity.class));
-            }
+                }
         });
 
         TextView tvDeleteMyInfo = view.findViewById(R.id.deleteMyInfo_textView);
@@ -194,9 +190,6 @@ public class MainAccountFragment extends Fragment {
             editor.clear();
             editor.apply();
             MyApplication.setLogInStatus(false);
-            startActivity(new Intent(getActivity(), EmptyActivity.class));
-
-
         }
     };
 }

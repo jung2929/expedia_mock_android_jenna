@@ -66,7 +66,7 @@ public class MainPlanFragment extends Fragment {
         checkLoginStatus();
     }
 
-    private void checkLoginStatus(){
+    public void checkLoginStatus(){
         if(MyApplication.isLogInStatus()){
             btnLogin.setVisibility(View.GONE);
             btnRefresh.setVisibility(View.VISIBLE);
