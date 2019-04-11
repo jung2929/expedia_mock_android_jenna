@@ -1,6 +1,7 @@
 package com.example.expedia.fragment;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.expedia.MyApplication;
@@ -79,25 +81,30 @@ public class MainReservationFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
         return view;
     }
 
     @Override
     public void onStart() {
+        super.onStart();
+        checkLoginStatus();
+    }
+
+    public void checkLoginStatus(){
         if(MyApplication.isLogInStatus()){
             ivLoginImage.setVisibility(View.GONE);
             tvAfterLogin.setVisibility(View.VISIBLE);
-
         }else{
             ivLoginImage.setVisibility(View.VISIBLE);
             tvAfterLogin.setVisibility(View.GONE);
-
-        } scrollView.post(new Runnable(){
+        }
+        scrollView.post(new Runnable(){
             @Override
             public void run(){
-                scrollView.fullScroll(scrollView.FOCUS_UP);
+                scrollView.fullScroll(NestedScrollView.FOCUS_UP);
             }
         });
-        super.onStart();
     }
+
 }

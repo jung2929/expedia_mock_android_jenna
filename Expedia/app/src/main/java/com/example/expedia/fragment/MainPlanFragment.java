@@ -28,21 +28,6 @@ public class MainPlanFragment extends Fragment {
         // Required empty public constructor
     }
 
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        if(MyApplication.isLogInStatus()){
-            btnLogin.setVisibility(View.GONE);
-            btnRefresh.setVisibility(View.VISIBLE);
-            tvPlanStatus.setText(getActivity().getResources().getString(R.string.no_plan));
-        }else{
-            btnLogin.setVisibility(View.VISIBLE);
-            btnRefresh.setVisibility(View.GONE);
-            tvPlanStatus.setText(getActivity().getResources().getString(R.string.login_to_check_plan));
-        }
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -70,7 +55,26 @@ public class MainPlanFragment extends Fragment {
             }
         });
 
+
+
         return view;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        checkLoginStatus();
+    }
+
+    private void checkLoginStatus(){
+        if(MyApplication.isLogInStatus()){
+            btnLogin.setVisibility(View.GONE);
+            btnRefresh.setVisibility(View.VISIBLE);
+            tvPlanStatus.setText(getActivity().getResources().getString(R.string.no_plan));
+        }else{
+            btnLogin.setVisibility(View.VISIBLE);
+            btnRefresh.setVisibility(View.GONE);
+            tvPlanStatus.setText(getActivity().getResources().getString(R.string.login_to_check_plan));
+        }
+    }
 }

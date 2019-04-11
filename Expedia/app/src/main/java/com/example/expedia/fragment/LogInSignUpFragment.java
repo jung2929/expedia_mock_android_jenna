@@ -41,7 +41,7 @@ public class LogInSignUpFragment extends Fragment {
 
     private SignUpConnection httpConn = new SignUpConnection();
     private String Email, Pw, Name, message, json;
-    private EditText etEmail, etPassword, etFirstName, etLastName;
+    private EditText etEmail, etPassword, etFirstName;
     private Activity activity;
 
     public LogInSignUpFragment() {
@@ -55,14 +55,13 @@ public class LogInSignUpFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_log_in_sign_up, container, false);
         etFirstName = view.findViewById(R.id.signUp_firstName);
         activity = getActivity();
-        etLastName = view.findViewById(R.id.signUp_lastName);
         etEmail = view.findViewById(R.id.signUp_email);
         etPassword = view.findViewById(R.id.signUp_password);
         Button sign_up = view.findViewById(R.id.signUp_btn);
         sign_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Name = etLastName.getText().toString()+etFirstName.getText().toString();
+                Name = etFirstName.getText().toString();
                 Email = etEmail.getText().toString();
                 Pw = etPassword.getText().toString();
                 Gson body = new Gson();
@@ -72,7 +71,6 @@ public class LogInSignUpFragment extends Fragment {
                 object.addProperty("Name", Name);
                 json = body.toJson(object);
                 sendData();
-                activity.finish();
             }
         });
 
@@ -133,6 +131,7 @@ public class LogInSignUpFragment extends Fragment {
                 });
             }else{
                 MyApplication.setLogInStatus(true);
+                activity.finish();
             }
             Log.d(TAG, "서버에서 응답한 Body:"+element);
         }

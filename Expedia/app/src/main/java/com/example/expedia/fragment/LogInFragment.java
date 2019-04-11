@@ -44,7 +44,7 @@ import static android.support.constraint.Constraints.TAG;
  */
 public class LogInFragment extends Fragment {
 
-    private SignUpConnection httpConn = new SignUpConnection();
+    private LogInConnection httpConn = new LogInConnection();
     private String email, password, message, json;
     private Activity activity;
     private EditText etEmail, etPassword;
@@ -103,11 +103,11 @@ public class LogInFragment extends Fragment {
         });
         return view;
     }
-    private class SignUpConnection {
+    private class LogInConnection {
 
         private OkHttpClient client;
 
-        private SignUpConnection() {
+        private LogInConnection() {
             this.client = new OkHttpClient();
         }
         private void requestWebServer(Callback callback) {
