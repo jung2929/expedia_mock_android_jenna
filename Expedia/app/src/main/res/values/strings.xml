@@ -57,4 +57,9 @@
     <string name="invalid_token">"유효하지 않은 회원 정보입니다. 자동으로 로그아웃됩니다."</string>
     <string name="delete_search_record">"검색 기록 삭제"</string>
     <string name="delete_search_record_alert">"모든 검색기록이 삭제됩니다. 계속 하시겠습니까?</string>
+    <string name="one_day">"/1박"</string>
+    <string name="selection">"선택"</string>
+    <string name="stock">"개 남았어요!"</string>
+    <string name="point">"포인트 적립"</string>
+    <string name="login_to_reservation">"예약은 로그인 후 이용 가능합니다."</string>
 </resources>

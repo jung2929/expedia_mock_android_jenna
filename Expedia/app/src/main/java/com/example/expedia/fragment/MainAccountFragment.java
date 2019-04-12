@@ -68,7 +68,7 @@ public class MainAccountFragment extends Fragment {
                 editor.apply();
                 MyApplication.setLogInStatus(false);
                 btnLogin.setVisibility(View.VISIBLE);
-                btnLogout.setVisibility(View.INVISIBLE);
+                btnLogout.setVisibility(View.GONE);
                 }
         });
 
@@ -120,11 +120,11 @@ public class MainAccountFragment extends Fragment {
 
     private void checkLoginStatus(){
         if (MyApplication.isLogInStatus()){
-            btnLogin.setVisibility(View.INVISIBLE);
+            btnLogin.setVisibility(View.GONE);
             btnLogout.setVisibility(View.VISIBLE);
         }else{
             btnLogin.setVisibility(View.VISIBLE);
-            btnLogout.setVisibility(View.INVISIBLE);
+            btnLogout.setVisibility(View.GONE);
         }
     }
     private class deleteUserConnection {

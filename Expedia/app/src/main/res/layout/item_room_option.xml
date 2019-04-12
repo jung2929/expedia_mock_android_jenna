@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="0dp"
+    android:background="@color/background_default"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/divider" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/option_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/expedia_darkblue"
+                android:textStyle="bold"
+                tools:text="옵션 1" />
+
+            <TextView
+                android:id="@+id/freeCancel_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/free_cancel"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/freeCancelDeadLine_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/expedia_darkblue"
+                android:textSize="12sp"
+                tools:text="5월 8일 (수) 전까지" />
+
+            <TextView
+                android:id="@+id/option1_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/expedia_darkblue"
+                android:textSize="12sp"
+                tools:text="무료 무선 인터넷" />
+
+            <TextView
+                android:id="@+id/option2_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/expedia_darkblue"
+                android:textSize="12sp"
+                tools:text="무료 주차" />
+
+            <TextView
+                android:id="@+id/point_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/expedia_darkblue"
+                android:textSize="12sp"
+                tools:text="440포인트 적립" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/sale_round">
+
+                <TextView
+                    android:id="@+id/sale_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginEnd="3dp"
+                    tools:text="-75%" />
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/originalPrice_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/expedia_darkblue"
+                    android:textSize="13sp"
+                    tools:text="￦218,182" />
+
+                <TextView
+                    android:id="@+id/specialPrice_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/expedia_darkblue"
+                    android:textStyle="bold"
+                    tools:text="￦109,091" />
+
+                <TextView
+                    android:id="@+id/night_TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/one_day"
+                    android:textColor="@color/expedia_darkblue"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/select_button"
+                android:layout_width="45dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/corner_round"
+                android:text="@string/selection" />
+
+            <TextView
+                android:id="@+id/stock_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/expedia_darkblue"
+                android:textSize="13sp"
+                tools:text="5개 남았어요!" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

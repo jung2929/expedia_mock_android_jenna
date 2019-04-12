@@ -88,8 +88,6 @@ public class MainReservationFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        Log.e("TAG", "이전 상태"+prev_loginStatus);
-        Log.e("TAG2","현재 상태"+MyApplication.isLogInStatus());
         if(prev_loginStatus != MyApplication.isLogInStatus()) {
             checkLoginStatus();
         }

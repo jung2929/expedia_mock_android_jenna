@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -13,6 +14,7 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -24,8 +26,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.expedia.R;
+import com.example.expedia.adapter.HotelDetailRoomRVAdapter;
 import com.example.expedia.adapter.HotelDetailServiceListRVAdapter;
 import com.example.expedia.adapter.HotelDetailUVPAdapter;
+import com.example.expedia.data.HotelDetailRoomData;
+import com.example.expedia.data.RoomOptionData;
+import com.example.expedia.sampledata.HotelDetailRoomDataSample;
 import com.example.expedia.sampledata.ServiceListDataSample;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -34,22 +40,62 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.tmall.ultraviewpager.UltraViewPager;
 
 import org.w3c.dom.Text;
 
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class HotelDetailActivity extends AppCompatActivity implements OnMapReadyCallback{
     private NestedScrollView scrollView;
     private HotelDetailServiceListRVAdapter hdslAdapter = new HotelDetailServiceListRVAdapter();
+    private HotelDetailRoomRVAdapter hotelDetailRoomRVAdapter = new HotelDetailRoomRVAdapter();
+    private HotelDetailConnection httpConn = new HotelDetailConnection();
+    private int hNo;
+    private String message;
+    private RatingBar rbHotelRating;
+    private TextView detailLocation, tvRatingTotal;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_detail);
         Intent intent = getIntent();
+        hNo = intent.getIntExtra("hNo",0);
         String hotelName = intent.getStringExtra("name");
-        Toast.makeText(HotelDetailActivity.this, hotelName, Toast.LENGTH_LONG).show();
+        String price = intent.getStringExtra("price");
+        String sale = intent.getStringExtra("sale");
+        String sDate = intent.getStringExtra("sDate");
+        SimpleDateFormat dateFormatOrigin = new SimpleDateFormat("M월 d일 (E)", Locale.KOREA);
+        SimpleDateFormat dateFormatWant = new SimpleDateFormat("M월 d일", Locale.KOREA);
+        try{
+            Date date = dateFormatOrigin.parse(sDate);
+            sDate = dateFormatWant.format(date);
+        }catch(ParseException e){
+            e.printStackTrace();
+        }
+        String eDate = intent.getStringExtra("eDate");
+        try{
+            Date date = dateFormatOrigin.parse(eDate);
+            eDate = dateFormatWant.format(date);
+        }catch(ParseException e){
+            e.printStackTrace();
+        }
         //--------------------------- 상단 바 ---------------------------------//
         ImageView backImage = findViewById(R.id.cancel_btn);
         backImage.setOnClickListener(new View.OnClickListener() {
@@ -68,9 +114,8 @@ public class HotelDetailActivity extends AppCompatActivity implements OnMapReady
         });
         TextView tvHotelName = findViewById(R.id.hotelName_textView);
         tvHotelName.setText(hotelName);
-        RatingBar rbHotelRating = findViewById(R.id.ratingBar);
+        rbHotelRating = findViewById(R.id.ratingBar);
         float rate = (float)4.3;
-        rbHotelRating.setRating(rate);
 
         //--------------------------- 스크롤 뷰 ---------------------------------//
         scrollView = findViewById(R.id.scrollView);
@@ -103,10 +148,9 @@ public class HotelDetailActivity extends AppCompatActivity implements OnMapReady
         //------------------------------------뷰 페이져 끝 ------------------------------------//
 
         TextView tvSale = findViewById(R.id.sale_textView);
-        String string = "-75%";
-        tvSale.setText(string);
+        tvSale.setText(sale);
         TextView tvOriginalPrice = findViewById(R.id.originalPrice_textView);
-        string = "￦272,727";
+        String string = "￦272,727";
         tvOriginalPrice.setText(string);
         tvOriginalPrice.setPaintFlags(tvOriginalPrice.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
         LinearLayout llEditPeriod = findViewById(R.id.editPeriod_layout);
@@ -117,20 +161,19 @@ public class HotelDetailActivity extends AppCompatActivity implements OnMapReady
             }
         });
         TextView tvPeriod = findViewById(R.id.period_textView);
-        string = "5월 14일 ~ 5월 15일";
+        string = sDate + " ~ " + eDate;
         tvPeriod.setText(string);
         TextView tvSpecialPrice = findViewById(R.id.specialPrice_textView);
-        string = "￦68,182";
-        tvSpecialPrice.setText(string);
+        tvSpecialPrice.setText(price);
         TextView tvPerson = findViewById(R.id.person_textView);
         string = "2명";
         tvPerson.setText(string);
         TextView tvPoint = findViewById(R.id.point_textView);
         string = "276포인트 적립";
         tvPoint.setText(string);
-        TextView tvRatingTotal = findViewById(R.id.ratingTotal_textView);
-        string = "4.2";
-        tvRatingTotal.setText(string);
+        tvRatingTotal = findViewById(R.id.ratingTotal_textView);
+        //string = "4.2";
+        //tvRatingTotal.setText(string);
         TextView tvGeneralLiview = findViewById(R.id.generalReview_textView);
         string = "- 매우 좋음!";
         tvGeneralLiview.setText(string);
@@ -184,6 +227,7 @@ public class HotelDetailActivity extends AppCompatActivity implements OnMapReady
         rvServicesList.setAdapter(hdslAdapter);
         hdslAdapter.setItems(new ServiceListDataSample().getItems());
 
+        detailLocation = findViewById(R.id.locationDetail_textView);
         //---------------------------------구글 맵--------------------------//
         FragmentManager fragmentManager = getFragmentManager();
         MapFragment mapFragment = (MapFragment)fragmentManager
@@ -220,6 +264,11 @@ public class HotelDetailActivity extends AppCompatActivity implements OnMapReady
 
         //------------------------------ 방 정보 -----------------------------//
         RecyclerView rvRoomList = findViewById(R.id.roomList_recyclerView);
+        rvRoomList.setLayoutManager(new LinearLayoutManager(HotelDetailActivity.this));
+        rvRoomList.setAdapter(hotelDetailRoomRVAdapter);
+        //hotelDetailRoomRVAdapter.setItems(new HotelDetailRoomDataSample().getItems());
+
+        sendData();
 
     }
 
@@ -232,4 +281,101 @@ public class HotelDetailActivity extends AppCompatActivity implements OnMapReady
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(SEOUL));
         googleMap.animateCamera(CameraUpdateFactory.zoomTo(13));
     }
+
+    private class HotelDetailConnection {
+
+        private OkHttpClient client;
+
+        private HotelDetailConnection() {
+            this.client = new OkHttpClient();
+        }
+        private void requestWebServer(Callback callback) {
+            Request request = new Request.Builder()
+                            .url("http://www.kaca5.com/expedia/discounted_more?Hno=" + hNo)
+                            .build();
+                    client.newCall(request).enqueue(callback);
+        }
+    }
+
+    private void sendData() {
+        new Thread() {
+            public void run() {
+                httpConn.requestWebServer(callback);
+            }
+        }.start();
+    }
+
+    private final Callback callback = new Callback() {
+        @Override
+        public void onFailure(@NonNull Call call, IOException e) {
+            Log.d("TAG", "콜백오류:"+e.getMessage());
+
+            message = getApplicationContext().getResources().getString(R.string.callback_error);
+            HotelDetailActivity.this.runOnUiThread(new Runnable() {
+                public void run() {
+                    Toast.makeText(HotelDetailActivity.this, message, Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }
+        @Override
+        public void onResponse(@NonNull Call call, Response response) throws IOException {
+            String body = response.body().string();
+            JsonParser parser = new JsonParser();
+            JsonElement element = parser.parse(body);
+            if(element.getAsJsonObject().get("code").getAsInt() == 100) {
+                JsonArray rooms = element.getAsJsonObject().get("result").getAsJsonArray();
+                int size = rooms.size();
+                JsonObject hotelInfo = rooms.get(size-1).getAsJsonObject();
+                final String description = hotelInfo.get("Name").getAsString()+"은(는) "
+                        +hotelInfo.get("LongL").getAsString()+" 인근에 위치해 있습니다.";
+                final Float rate = (Float)hotelInfo.get("Ratings").getAsFloat();
+
+                JsonObject room;
+
+                final ArrayList<HotelDetailRoomData> roomData = new ArrayList<>();
+                HotelDetailRoomData roomDatum;
+                int rNo, percentage;
+                String price, grade, bed;
+                for (int i = 0; i < size-1;i++){
+                    room = rooms.get(i).getAsJsonObject();
+                    rNo = room.get("Rno").getAsInt();
+                    percentage = room.get("Percentage").getAsInt();
+                    price = room.get("Priced").getAsString();
+                    int j = i+1;
+                    grade = "방"+ j + " " +room.get("Grade").getAsString();
+                    bed = room.get("Bed").getAsString();
+
+                    ArrayList<RoomOptionData> options = new ArrayList<>();
+                    RoomOptionData option = new RoomOptionData(rNo, percentage, 1, 6, "5월 1일 (수)까지", 440, "￦210,000", price);
+                    RoomOptionData option2 = new RoomOptionData(rNo, percentage, 2, 9, "5월 1일 (수)까지", 680, "￦210,000", "￦120,000");
+                    options.add(option);
+                    options.add(option2);
+
+                    roomDatum = new HotelDetailRoomData(R.drawable.room_image, percentage, rNo, grade, bed, options);
+                    roomData.add(roomDatum);
+                }
+                hotelDetailRoomRVAdapter.setItems(roomData);
+                HotelDetailActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        rbHotelRating.setRating(rate);
+                        detailLocation.setText(description);
+                        hotelDetailRoomRVAdapter.notifyDataSetChanged();
+                        String stringRate = rate+"";
+                        tvRatingTotal.setText(stringRate);
+                    }
+                });
+            } else{
+                message = getApplicationContext().getResources().getString(R.string.callback_error);
+                HotelDetailActivity.this.runOnUiThread(new Runnable() {
+                    public void run() {
+                        Toast.makeText(HotelDetailActivity.this, message, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+            Log.d("TAG", "서버에서 응답한 Body:"+element);
+
+        }
+    };
 }

@@ -1,11 +1,12 @@
 package com.example.expedia.data;
 
 public class HotelListData {
-    private int night, price, sale;
-    private String name, location, startDate, endDate;
+    private int night, sale, hNo;
+    private String name, location, startDate, endDate, price;
     private int image;
 
-    public HotelListData(int night, int price, String name, String location, String startDate, String endDate, int image, int sale) {
+    public HotelListData(int hNo, int night, String price, String name, String location, String startDate, String endDate, int image, int sale) {
+        this.hNo = hNo;
         this.night = night;
         this.price = price;
         this.name = name;
@@ -24,11 +25,11 @@ public class HotelListData {
         this.night = night;
     }
 
-    public int getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
@@ -78,5 +79,13 @@ public class HotelListData {
 
     public void setSale(int sale) {
         this.sale = sale;
+    }
+
+    public int gethNo() {
+        return hNo;
+    }
+
+    public void sethNo(int hNo) {
+        this.hNo = hNo;
     }
 }

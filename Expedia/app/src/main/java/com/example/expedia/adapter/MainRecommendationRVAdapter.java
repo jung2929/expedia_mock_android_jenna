@@ -22,7 +22,7 @@ public class MainRecommendationRVAdapter extends RecyclerView.Adapter<MainRecomm
     @NonNull
     @Override
     public MainRecommendationRVAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i){
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_category,parent,false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recommendation,parent,false);
         return new ViewHolder(itemView);
     }
 

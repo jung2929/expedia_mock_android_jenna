@@ -15,7 +15,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-import static android.support.constraint.Constraints.TAG;
 
 public class MyApplication extends Application {
     private static boolean logInStatus;
@@ -69,10 +68,10 @@ public class MyApplication extends Application {
     private final Callback callback = new Callback() {
         @Override
         public void onFailure(@NonNull Call call, IOException e) {
-            Log.d(TAG, "콜백오류:"+e.getMessage());
+            Log.d("TAG", "콜백오류:"+e.getMessage());
 
             String message = getApplicationContext().getResources().getString(R.string.callback_error);
-            Log.d(TAG, "message:"+message);
+            Log.d("TAG", "message:"+message);
 
         }
         @Override
@@ -90,7 +89,7 @@ public class MyApplication extends Application {
                 editor.clear();
                 editor.apply();
             }
-            Log.d(TAG, "서버에서 응답한 Body:"+element);
+            Log.d("TAG", "서버에서 응답한 Body:"+element);
 
         }
     };

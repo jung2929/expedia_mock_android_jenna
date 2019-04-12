@@ -31,24 +31,32 @@ public class RecommendationHotelRVAdapter extends RecyclerView.Adapter<Recommend
     public void onBindViewHolder(@NonNull RecommendationHotelRVAdapter.ViewHolder viewHolder, int position){
         final HotelListData item = items.get(position);
         View mView = viewHolder.itemView;
+        final String name = item.getName();
         Glide.with(mView.getContext()).load(item.getImage()).override(430,300).centerCrop().into(viewHolder.imageView);
-        viewHolder.tvHotelName.setText(item.getName());
-        String price = "￦"+item.getPrice();
+        viewHolder.tvHotelName.setText(name);
+        final String price = "￦"+item.getPrice();
         viewHolder.tvHotelPrice.setText(price);
         String night = item.getNight()+"박 요금";
         viewHolder.tvHotelNight.setText(night);
         viewHolder.tvHotelLocation.setText(item.getLocation());
-        String sale = "-"+item.getSale()+"%";
+        final String sale = "-"+item.getSale()+"%";
         viewHolder.tvHotelSale.setText(sale);
-        String period = item.getStartDate() + "~" + item.getEndDate();
+        String period = item.getStartDate() + " ~ " + item.getEndDate();
         viewHolder.tvHotelPeriod.setText(period);
 
         mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), HotelDetailActivity.class);
-                String name = item.getName();
+                String sDate = item.getStartDate();
+                String eDate = item.getEndDate();
+                int hNo = item.gethNo();
                 intent.putExtra("name", name);
+                intent.putExtra("price", price);
+                intent.putExtra("sale", sale);
+                intent.putExtra("sDate", sDate);
+                intent.putExtra("eDate", eDate);
+                intent.putExtra("hNo", hNo);
                 v.getContext().startActivity(intent);
             }
         });
