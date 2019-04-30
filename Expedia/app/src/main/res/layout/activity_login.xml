@@ -23,7 +23,7 @@
             android:layout_margin="0dp"
             android:layout_weight="0"
             android:padding="10dp"
-            app:srcCompat="@drawable/cancle_btn" />
+            app:srcCompat="@drawable/cancel_btn" />
 
         <android.support.design.widget.TabLayout
             android:id="@+id/login_tab"

@@ -31,6 +31,15 @@
                     android:id="@+id/room_imageView"
                     android:layout_width="match_parent"
                     android:layout_height="130dp" />
+
+                <ImageView
+                    android:id="@+id/moreImage_imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginEnd="5dp"
+                    app:srcCompat="@android:drawable/ic_menu_gallery" />
             </FrameLayout>
 
             <TextView

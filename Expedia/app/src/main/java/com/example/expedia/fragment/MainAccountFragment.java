@@ -1,6 +1,7 @@
 package com.example.expedia.fragment;
 
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,29 +10,17 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.expedia.MyApplication;
 import com.example.expedia.R;
-import com.example.expedia.activity.LogInActivity;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
-
-import java.io.IOException;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-
-import static android.support.constraint.Constraints.TAG;
+import com.example.expedia.activity.LogInSignUpActivity;
+import com.example.expedia.datamanager.DeleteUserCallback;
+import com.example.expedia.datamanager.HttpConnection;
 
 
 /**
@@ -39,24 +28,27 @@ import static android.support.constraint.Constraints.TAG;
  */
 public class MainAccountFragment extends Fragment {
     private Button btnLogin, btnLogout;
-    private deleteUserConnection httpConn = new deleteUserConnection();
     private SharedPreferences sharedPreferences;
-    private String message;
+    private HttpConnection httpConnection;
+    private DeleteUserCallback callback;
+    private Activity activity;
 
     public MainAccountFragment() {
         // Required empty public constructor
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main_account, container, false);
-        sharedPreferences = getActivity().getSharedPreferences("login",Context.MODE_PRIVATE);
+        activity = getActivity();
+        assert activity != null;
+        sharedPreferences = activity.getSharedPreferences("login",Context.MODE_PRIVATE);
         btnLogin = view.findViewById(R.id.login_button);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getContext(), LogInActivity.class));
+                startActivity(new Intent(getContext(), LogInSignUpActivity.class));
             }
         });
         btnLogout = view.findViewById(R.id.logout_button);
@@ -67,8 +59,8 @@ public class MainAccountFragment extends Fragment {
                 editor.clear();
                 editor.apply();
                 MyApplication.setLogInStatus(false);
-                btnLogin.setVisibility(View.VISIBLE);
-                btnLogout.setVisibility(View.GONE);
+                MyApplication.setToken("");
+                checkLoginStatus();
                 }
         });
 
@@ -78,29 +70,31 @@ public class MainAccountFragment extends Fragment {
             public void onClick(View v) {
                 if (MyApplication.isLogInStatus()) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                    builder.setTitle(getActivity().getResources().getString(R.string.delete_my_info));
-                    builder.setMessage(getActivity().getResources().getString(R.string.delete_info_alert));
+                    builder.setTitle(activity.getResources().getString(R.string.delete_my_info));
+                    builder.setMessage(activity.getResources().getString(R.string.delete_info_alert));
                     builder.setCancelable(false);
-                    builder.setPositiveButton(getActivity().getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+                    builder.setPositiveButton(activity.getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             sendData();
+                            btnLogin.setVisibility(View.VISIBLE);
+                            btnLogout.setVisibility(View.GONE);
                         }
                     });
-                    builder.setNegativeButton(getActivity().getResources().getString(R.string.no), null);
+                    builder.setNegativeButton(activity.getResources().getString(R.string.no), null);
                     AlertDialog ad = builder.create();
                     ad.show();
                 } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                    builder.setTitle(getActivity().getResources().getString(R.string.delete_search_record));
-                    builder.setMessage(getActivity().getResources().getString(R.string.delete_search_record_alert));
+                    builder.setTitle(activity.getResources().getString(R.string.delete_search_record));
+                    builder.setMessage(activity.getResources().getString(R.string.delete_search_record_alert));
                     builder.setCancelable(false);
-                    builder.setPositiveButton(getActivity().getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+                    builder.setPositiveButton(activity.getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                         }
                     });
-                    builder.setNegativeButton(getActivity().getResources().getString(R.string.no), null);
+                    builder.setNegativeButton(activity.getResources().getString(R.string.no), null);
                     AlertDialog ad = builder.create();
                     ad.show();
                 }
@@ -127,7 +121,18 @@ public class MainAccountFragment extends Fragment {
             btnLogout.setVisibility(View.GONE);
         }
     }
-    private class deleteUserConnection {
+
+    private void sendData(){
+        httpConnection = new HttpConnection(getContext(),"user","delete");
+        callback = new DeleteUserCallback(activity);
+        new Thread() {
+            public void run() {
+                httpConnection.requestWebServer(callback);
+            }
+        }.start();
+
+    }
+    /*private class deleteUserConnection {
 
         private OkHttpClient client;
 
@@ -145,9 +150,7 @@ public class MainAccountFragment extends Fragment {
         }
     }
 
-    /** 웹 서버로 데이터 전송 */
     private void sendData() {
-// 네트워크 통신하는 작업은 무조건 작업스레드를 생성해서 호출 해줄 것!!
         new Thread() {
             public void run() {
                 httpConn.requestWebServer(callback);
@@ -190,6 +193,11 @@ public class MainAccountFragment extends Fragment {
             editor.clear();
             editor.apply();
             MyApplication.setLogInStatus(false);
+            getActivity().runOnUiThread(new Runnable() {
+                public void run() {
+                    Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.delete_user_success), Toast.LENGTH_SHORT).show();
+                }
+            });
         }
-    };
+    };*/
 }

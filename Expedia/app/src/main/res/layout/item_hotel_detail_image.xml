@@ -20,21 +20,31 @@
         android:layout_marginEnd="10dp"
         app:srcCompat="@android:drawable/ic_menu_gallery" />
 
-    <LinearLayout
+    <FrameLayout
         android:id="@+id/lastImage_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:gravity="center">
-        <ImageView
+        android:background="#80000000">
+
+        <LinearLayout
+            android:id="@+id/moreImage_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            app:srcCompat="@android:drawable/ic_menu_gallery"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/more_image"/>
-    </LinearLayout>
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                app:srcCompat="@android:drawable/ic_menu_gallery" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/more_image" />
+        </LinearLayout>
+    </FrameLayout>
 
 </FrameLayout>

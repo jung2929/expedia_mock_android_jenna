@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.example.expedia.fragment.LogInFragment;
-import com.example.expedia.fragment.LogInSignUpFragment;
+import com.example.expedia.fragment.SignUpFragment;
 
 public class LogInPageAdapter extends FragmentPagerAdapter {
     int mNumOfTabs;
@@ -21,7 +21,7 @@ public class LogInPageAdapter extends FragmentPagerAdapter {
             case 0:
                 return new LogInFragment();
             case 1:
-                return new LogInSignUpFragment();
+                return new SignUpFragment();
 
             default:
                 return null;

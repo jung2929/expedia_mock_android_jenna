@@ -3,11 +3,11 @@ package com.example.expedia.data;
 import java.util.ArrayList;
 
 public class HotelDetailRoomData {
-    private int roomImage, sale, roomNum;
-    private String grade, bed;
+    private int sale, roomNum;
+    private String grade, bed, roomImage;
     private ArrayList<RoomOptionData> options;
 
-    public HotelDetailRoomData(int roomImage, int sale, int roomNum, String grade, String bed, ArrayList<RoomOptionData> options) {
+    public HotelDetailRoomData(String roomImage, int sale, int roomNum, String grade, String bed, ArrayList<RoomOptionData> options) {
         this.roomImage = roomImage;
         this.sale = sale;
         this.roomNum = roomNum;
@@ -16,11 +16,11 @@ public class HotelDetailRoomData {
         this.options = options;
     }
 
-    public int getRoomImage() {
+    public String getRoomImage() {
         return roomImage;
     }
 
-    public void setRoomImage(int roomImage) {
+    public void setRoomImage(String roomImage) {
         this.roomImage = roomImage;
     }
 

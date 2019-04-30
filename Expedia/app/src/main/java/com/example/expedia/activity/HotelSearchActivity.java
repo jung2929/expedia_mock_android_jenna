@@ -1,8 +1,6 @@
 package com.example.expedia.activity;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,20 +11,25 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.expedia.dialog.CustomDialogListener;
 import com.example.expedia.dialog.HotelPersonNumDialog;
 import com.example.expedia.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class HotelSearchActivity extends AppCompatActivity {
     ImageView cancelImage;
     TextView destination,date,person;
     Button searchbtn;
     HotelPersonNumDialog dialog;
-    String destinationData, date_start, date_end, person_num;
+    String destinationData, date_start, date_end, person_num, search_date_start, search_date_end;
     Calendar calendar_start = Calendar.getInstance();
     Calendar calendar_end = Calendar.getInstance();
     int adult, kid;
@@ -50,7 +53,7 @@ public class HotelSearchActivity extends AppCompatActivity {
         destination.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(HotelSearchActivity.this, HotelDestinationActivity.class));
+                startActivityForResult(new Intent(HotelSearchActivity.this, HotelDestinationActivity.class),0);
             }
         });
 
@@ -71,7 +74,6 @@ public class HotelSearchActivity extends AppCompatActivity {
 
         //인원 수
         person = findViewById(R.id.person_text);
-
         kidAge = new ArrayList<>();
         dialog = new HotelPersonNumDialog(this);
         person.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +85,23 @@ public class HotelSearchActivity extends AppCompatActivity {
             }
         });
         searchbtn = findViewById(R.id.search_button);
-        startActivity(new Intent(HotelSearchActivity.this, HotelDestinationActivity.class));
+        searchbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(destination.getText().toString().equals("목적지 입력")|| date.getText().toString().equals("날짜 선택")||person.getText().toString().equals("인원 수")){
+                    Toast.makeText(HotelSearchActivity.this, HotelSearchActivity.this.getResources().getString(R.string.check_condition), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                int people = adult+kid;
+                String url = "hotel_filter?Name="+destinationData+"&Sdate="+search_date_start+"&Edate="+search_date_end+"&People="+people;
+                Intent intent = new Intent(HotelSearchActivity.this, HotelListActivity.class);
+                intent.putExtra("url",url);
+                intent.putExtra("no",3);
+                startActivity(intent);
+                Log.e("TAG","url="+url);
+            }
+        });
+        startActivityForResult(new Intent(HotelSearchActivity.this, HotelDestinationActivity.class),0);
     }
 
     private DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
@@ -96,6 +114,15 @@ public class HotelSearchActivity extends AppCompatActivity {
             dialog.getDatePicker().setMinDate(calendar.getTime().getTime());
             monthOfYear += 1;
             date_start = monthOfYear+"월 "+ dayOfMonth +"일";
+            search_date_start = year +"-"+monthOfYear+"-"+dayOfMonth;
+            SimpleDateFormat dateFormatOrigin = new SimpleDateFormat("yyyy-M-d", Locale.KOREA);
+            SimpleDateFormat dateFormatWant = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
+            try{
+                Date date = dateFormatOrigin.parse(search_date_start);
+                search_date_start = dateFormatWant.format(date);
+            }catch(ParseException e){
+                e.printStackTrace();
+            }
             dialog.show();
         }
     };
@@ -126,8 +153,25 @@ public class HotelSearchActivity extends AppCompatActivity {
             month += 1;
             int night = calendar_end.get(Calendar.DATE) - calendar_start.get(Calendar.DATE);
             date_end = month+"월 "+dayOfMonth+"일 ";
+            search_date_end = year +"-"+month+"-"+dayOfMonth;
+            SimpleDateFormat dateFormatOrigin = new SimpleDateFormat("yyyy-M-d", Locale.KOREA);
+            SimpleDateFormat dateFormatWant = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
+            try{
+                Date date = dateFormatOrigin.parse(search_date_end);
+                search_date_end = dateFormatWant.format(date);
+            }catch(ParseException e){
+                e.printStackTrace();
+            }
             String dateText = date_start +"~"+date_end +"("+night+"박)";
             date.setText(dateText);
         }
     };
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == RESULT_OK && requestCode ==0){
+            destinationData = data.getStringExtra("destination");
+            destination.setText(destinationData);
+        }
+    }
 }

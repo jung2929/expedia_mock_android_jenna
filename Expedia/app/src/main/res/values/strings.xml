@@ -62,4 +62,24 @@
     <string name="stock">"개 남았어요!"</string>
     <string name="point">"포인트 적립"</string>
     <string name="login_to_reservation">"예약은 로그인 후 이용 가능합니다."</string>
+    <string name="base_url">http://www.kaca5.com/expedia/</string>
+    <string name="delete_user_success">정상적으로 회원 탈퇴가 완료되었습니다.</string>
+    <string name="msg_token_fmt" translatable="false">%s</string>
+    <string name="reserve">예약하기</string>
+    <string name="reservation">예약</string>
+    <string name="hotel_name">호텔 명</string>
+    <string name="room">방</string>
+    <string name="check_in_date">입실 날짜</string>
+    <string name="check_out_date">퇴실 날짜</string>
+    <string name="change_condition">다른 조건으로 예약하기</string>
+    <string name="last_name">성</string>
+    <string name="additional_information">추가 정보 입력</string>
+    <string name="price">가격</string>
+    <string name="rating">별점</string>
+    <string name="check_reservation">예약 확인</string>
+    <string name="cancel_reservation">예약 취소</string>
+    <string name="cancel_reservation_success">정상적으로 취소되었습니다.</string>
+    <string name="cancel_reservation_alert">일정을 정말 취소하시겠습니까?</string>
+    <string name="check_condition">검색 조건을 모두 선택해 주세요.</string>
+    <string name="nothing_to_search">검색 결과가 없습니다.</string>
 </resources>

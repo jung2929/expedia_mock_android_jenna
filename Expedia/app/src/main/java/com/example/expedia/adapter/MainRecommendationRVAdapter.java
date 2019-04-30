@@ -10,7 +10,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.expedia.R;
-import com.example.expedia.activity.RecommendHotelListActivity;
+import com.example.expedia.activity.HotelListActivity;
 import com.example.expedia.data.RecommendationData;
 
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ public class MainRecommendationRVAdapter extends RecyclerView.Adapter<MainRecomm
         mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), RecommendHotelListActivity.class);
+                Intent intent = new Intent(v.getContext(), HotelListActivity.class);
                 int no = item.getNo();
                 intent.putExtra("no", no);
                 v.getContext().startActivity(intent);

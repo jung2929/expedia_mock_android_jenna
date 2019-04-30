@@ -5,10 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +14,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.expedia.MyApplication;
-import com.example.expedia.activity.RecommendHotelListActivity;
+import com.example.expedia.activity.HotelListActivity;
 import com.example.expedia.adapter.MainRecommendationRVAdapter;
 import com.example.expedia.R;
 import com.example.expedia.activity.HotelSearchActivity;
-import com.example.expedia.activity.LogInActivity;
+import com.example.expedia.activity.LogInSignUpActivity;
 import com.example.expedia.sampledata.RecommendationDataSample;
 
 
@@ -32,7 +30,6 @@ public class MainReservationFragment extends Fragment {
     private ImageView ivLoginImage;
     private TextView tvAfterLogin;
     private MainRecommendationRVAdapter adapter = new MainRecommendationRVAdapter();
-    private NestedScrollView scrollView;
     private boolean prev_loginStatus;
 
     public MainReservationFragment() {
@@ -45,7 +42,6 @@ public class MainReservationFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main_reservation, container, false);
 
         prev_loginStatus = MyApplication.isLogInStatus();
-        scrollView = view.findViewById(R.id.scrollView);
         RecyclerView recyclerView = view.findViewById(R.id.Main_category_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
@@ -59,14 +55,14 @@ public class MainReservationFragment extends Fragment {
                 startActivity(new Intent(getContext(), HotelSearchActivity.class));
             }
         });
-        ImageView ivAirport = view.findViewById(R.id.Main_Air);
-        ImageView ivHotel_airport = view.findViewById(R.id.Main_hotel_air);
+        //ImageView ivAirport = view.findViewById(R.id.Main_Air);
+        //ImageView ivHotel_airport = view.findViewById(R.id.Main_hotel_air);
 
         ivLoginImage = view.findViewById(R.id.login_imageView);
         ivLoginImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getContext(), LogInActivity.class));
+                startActivity(new Intent(getContext(), LogInSignUpActivity.class));
             }
         });
         tvAfterLogin = view.findViewById(R.id.afterLogin_textView);
@@ -75,7 +71,7 @@ public class MainReservationFragment extends Fragment {
         ivDeadlineImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), RecommendHotelListActivity.class);
+                Intent intent = new Intent(getContext(), HotelListActivity.class);
                 intent.putExtra("no", 2);
                 startActivity(intent);
             }
@@ -101,17 +97,7 @@ public class MainReservationFragment extends Fragment {
             ivLoginImage.setVisibility(View.VISIBLE);
             tvAfterLogin.setVisibility(View.GONE);
         }
-        scrollView.postDelayed(scrollRun, 300);
         prev_loginStatus = MyApplication.isLogInStatus();
     }
-
-    private Runnable scrollRun = new Runnable() {
-        @Override
-        public void run() {
-            scrollView.fullScroll(NestedScrollView.FOCUS_UP);
-        }
-    };
-
-
 
 }

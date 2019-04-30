@@ -1,5 +1,6 @@
 package com.example.expedia.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -52,6 +53,10 @@ public class HotelDestinationActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                Intent intent = new Intent();
+                intent.putExtra("destination", query);
+                setResult(RESULT_OK, intent);
+                finish();
                 //Toast.makeText(HotelDestinationActivity.this, "[검색버튼클릭] 검색어 = "+query, Toast.LENGTH_LONG).show();
                 return true;
             }

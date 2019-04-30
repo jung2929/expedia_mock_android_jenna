@@ -8,25 +8,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.example.expedia.MyApplication;
 import com.example.expedia.R;
 import com.example.expedia.activity.HotelDetailActivity;
-import com.example.expedia.activity.LogInActivity;
-import com.example.expedia.data.HotelListData;
+import com.example.expedia.activity.LogInSignUpActivity;
+import com.example.expedia.activity.ReservationActivity;
+import com.example.expedia.data.HotelDetailRoomData;
 import com.example.expedia.data.RoomOptionData;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
 public class RoomOptionRVAdapter extends RecyclerView.Adapter<RoomOptionRVAdapter.ViewHolder> {
 
     private ArrayList<RoomOptionData> items = new ArrayList<>();
+    private HotelDetailActivity activity;
+    private HotelDetailRoomData room;
+
+    public RoomOptionRVAdapter(HotelDetailActivity activity, HotelDetailRoomData room){
+        this.activity = activity;
+        this.room = room;
+    }
 
     @NonNull
     @Override
@@ -41,9 +45,11 @@ public class RoomOptionRVAdapter extends RecyclerView.Adapter<RoomOptionRVAdapte
         final View mView = viewHolder.itemView;
         String optionNo = "옵션" + item.getOptionNo();
         viewHolder.tvOptionNo.setText(optionNo);
-        viewHolder.tvOriginalPrice.setText(item.getOriginalPrice());
+        String originalPrice = "￦"+item.getOriginalPrice();
+        viewHolder.tvOriginalPrice.setText(originalPrice);
         viewHolder.tvOriginalPrice.setPaintFlags(viewHolder.tvOriginalPrice.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
-        viewHolder.tvSpecialPrice.setText(item.getSpecialPrice());
+        String specialPrice = "￦"+item.getSpecialPrice();
+        viewHolder.tvSpecialPrice.setText(specialPrice);
         viewHolder.tvOption1.setText("무료 와이파이");
         viewHolder.tvOption2.setText("무료 주차장");
         final String sale = "-"+item.getSale()+"%";
@@ -60,22 +66,24 @@ public class RoomOptionRVAdapter extends RecyclerView.Adapter<RoomOptionRVAdapte
             public void onClick(View v) {
 
                 if(MyApplication.isLogInStatus()) {
-                    Toast.makeText(mView.getContext(), "방" + item.getRoomNum() + "을(를) 예약합니다.", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(v.getContext(), ReservationActivity.class);
+                    String sDate = activity.sDate;
+                    String eDate = activity.eDate;
+                    int rNo = item.getRoomNum();
+                    intent.putExtra("hotelName", activity.hotelName);
+                    intent.putExtra("room",room.getGrade());
+                    intent.putExtra("price", item.getSpecialPrice());
+                    String option = "침대:" + room.getBed()+", 무료 와이파이, 무료 주차장";
+                    intent.putExtra("option",option);
+                    intent.putExtra("sDate", sDate);
+                    intent.putExtra("eDate", eDate);
+                    intent.putExtra("rNo", rNo);
+                    v.getContext().startActivity(intent);
                 }else{
                     Toast.makeText(mView.getContext(), mView.getContext().getResources().getString(R.string.login_to_reservation),Toast.LENGTH_LONG).show();
-                    mView.getContext().startActivity(new Intent(mView.getContext(), LogInActivity.class));
+                    mView.getContext().startActivity(new Intent(mView.getContext(), LogInSignUpActivity.class));
                 }
-                /*Intent intent = new Intent(v.getContext(), HotelDetailActivity.class);
-                String sDate = item.getStartDate();
-                String eDate = item.getEndDate();
-                int hNo = item.gethNo();
-                intent.putExtra("name", name);
-                intent.putExtra("price", price);
-                intent.putExtra("sale", sale);
-                intent.putExtra("sDate", sDate);
-                intent.putExtra("eDate", eDate);
-                intent.putExtra("hNo", hNo);
-                v.getContext().startActivity(intent);*/
+
             }
         });
     }

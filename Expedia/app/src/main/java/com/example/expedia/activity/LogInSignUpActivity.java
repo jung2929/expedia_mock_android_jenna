@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import com.example.expedia.adapter.LogInPageAdapter;
 import com.example.expedia.R;
 
-public class LogInActivity extends AppCompatActivity {
+public class LogInSignUpActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

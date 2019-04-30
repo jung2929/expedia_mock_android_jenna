@@ -20,7 +20,7 @@
             android:layout_margin="0dp"
             android:layout_marginStart="10dp"
             android:padding="10dp"
-            app:srcCompat="@drawable/cancle_btn" />
+            app:srcCompat="@drawable/cancel_btn" />
 
         <TextView
             android:id="@+id/deadline"
@@ -41,6 +41,7 @@
         android:fillViewport="true">
 
         <LinearLayout
+            android:focusableInTouchMode="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -76,11 +77,26 @@
                 android:textColor="@color/expedia_darkblue"
                 android:text="@string/agreement" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rvRecommendHotelList"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/expedia_background" />
+                android:background="@color/expedia_background">
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvRecommendHotelList"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/expedia_background"
+                    />
+            </FrameLayout>
+
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

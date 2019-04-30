@@ -1,6 +1,6 @@
 package com.example.expedia.adapter;
 
-import android.content.Intent;
+import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,16 +12,24 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.expedia.R;
-import com.example.expedia.activity.RecommendHotelListActivity;
+import com.example.expedia.activity.HotelDetailActivity;
 import com.example.expedia.data.HotelDetailRoomData;
-import com.example.expedia.data.RecommendationData;
+import com.example.expedia.datamanager.HotelImageCallback;
+import com.example.expedia.datamanager.HttpConnection;
+import com.example.expedia.datamanager.RoomImageCallback;
 
 import java.util.ArrayList;
 
 public class HotelDetailRoomRVAdapter extends RecyclerView.Adapter<HotelDetailRoomRVAdapter.ViewHolder> {
 
     private ArrayList<HotelDetailRoomData> items = new ArrayList<>();
-    private RoomOptionRVAdapter roomOptionRVAdapter = new RoomOptionRVAdapter();
+    public HotelDetailActivity activity;
+    private HttpConnection httpConnection;
+    private RoomImageCallback callback;
+
+    public HotelDetailRoomRVAdapter(HotelDetailActivity activity){
+        this.activity = activity;
+    }
 
     @NonNull
     @Override
@@ -34,6 +42,7 @@ public class HotelDetailRoomRVAdapter extends RecyclerView.Adapter<HotelDetailRo
     public void onBindViewHolder(@NonNull HotelDetailRoomRVAdapter.ViewHolder viewHolder, final int position){
         final HotelDetailRoomData item = items.get(position);
         final View mView = viewHolder.itemView;
+        RoomOptionRVAdapter roomOptionRVAdapter = new RoomOptionRVAdapter(activity, item);
 
         viewHolder.rvOption.setLayoutManager(new LinearLayoutManager(mView.getContext()));
         viewHolder.rvOption.setAdapter(roomOptionRVAdapter);
@@ -43,6 +52,21 @@ public class HotelDetailRoomRVAdapter extends RecyclerView.Adapter<HotelDetailRo
         viewHolder.tvGrade.setText(grade);
         String bed = item.getBed();
         viewHolder.tvBed.setText(bed);
+        viewHolder.ivMoreImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                httpConnection = new HttpConnection(activity, "room_image?Hno="+activity.hNo+"&Rno="+item.getRoomNum(),"get");
+                callback = new RoomImageCallback(activity);
+                new Thread(){
+                    public void run(){
+                        httpConnection.requestWebServer(callback);
+                    }
+                }.start();
+                activity.scrollView.setVisibility(View.GONE);
+                activity.rvRoomImages.setVisibility(View.VISIBLE);
+
+            }
+        });
     }
 
     @Override
@@ -56,7 +80,7 @@ public class HotelDetailRoomRVAdapter extends RecyclerView.Adapter<HotelDetailRo
 
     class ViewHolder extends  RecyclerView.ViewHolder{
         final View mView;
-        private ImageView ivRoom;
+        private ImageView ivRoom, ivMoreImage;
         private TextView tvGrade, tvBed;
         private RecyclerView rvOption;
 
@@ -67,6 +91,7 @@ public class HotelDetailRoomRVAdapter extends RecyclerView.Adapter<HotelDetailRo
             tvGrade = itemView.findViewById(R.id.grade_textView);
             tvBed = itemView.findViewById(R.id.bed_textView);
             rvOption = itemView.findViewById(R.id.option_recyclerView);
+            ivMoreImage = itemView.findViewById(R.id.moreImage_imageView);
         }
     }
 }

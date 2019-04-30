@@ -12,51 +12,70 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.expedia.R;
 import com.example.expedia.activity.HotelDetailActivity;
-import com.example.expedia.data.HotelListData;
+import com.example.expedia.data.HotelData;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
-public class RecommendationHotelRVAdapter extends RecyclerView.Adapter<RecommendationHotelRVAdapter.ViewHolder> {
+public class HotelListRVAdapter extends RecyclerView.Adapter<HotelListRVAdapter.ViewHolder> {
 
-    private ArrayList<HotelListData> items = new ArrayList<>();
+    private ArrayList<HotelData> items = new ArrayList<>();
 
     @NonNull
     @Override
-    public RecommendationHotelRVAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i){
+    public HotelListRVAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i){
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recommend_hotel,parent,false);
         return new ViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecommendationHotelRVAdapter.ViewHolder viewHolder, int position){
-        final HotelListData item = items.get(position);
+    public void onBindViewHolder(@NonNull HotelListRVAdapter.ViewHolder viewHolder, int position){
+        final HotelData item = items.get(position);
         View mView = viewHolder.itemView;
-        final String name = item.getName();
+        String name = item.getName();
         Glide.with(mView.getContext()).load(item.getImage()).override(430,300).centerCrop().into(viewHolder.imageView);
         viewHolder.tvHotelName.setText(name);
-        final String price = "￦"+item.getPrice();
+        String price = "￦"+item.getDiscounted_Price();
         viewHolder.tvHotelPrice.setText(price);
-        String night = item.getNight()+"박 요금";
+        String night = "1박 요금";
         viewHolder.tvHotelNight.setText(night);
         viewHolder.tvHotelLocation.setText(item.getLocation());
-        final String sale = "-"+item.getSale()+"%";
+        String sale = "-"+item.getPercentage()+"%";
         viewHolder.tvHotelSale.setText(sale);
-        String period = item.getStartDate() + " ~ " + item.getEndDate();
+        String sDate = item.getSdate();
+        SimpleDateFormat dateFormatOrigin = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
+        SimpleDateFormat dateFormatWant = new SimpleDateFormat("M월 d일 (E)", Locale.KOREA);
+        try{
+            Date date = dateFormatOrigin.parse(sDate);
+            sDate = dateFormatWant.format(date);
+        }catch(ParseException e){
+            e.printStackTrace();
+        }
+        String eDate = item.getEdate();
+        try{
+            Date date = dateFormatOrigin.parse(eDate);
+            eDate = dateFormatWant.format(date);
+        }catch(ParseException e){
+            e.printStackTrace();
+        }
+        String period = sDate + " ~ " + eDate;
         viewHolder.tvHotelPeriod.setText(period);
 
         mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), HotelDetailActivity.class);
-                String sDate = item.getStartDate();
-                String eDate = item.getEndDate();
-                int hNo = item.gethNo();
-                intent.putExtra("name", name);
-                intent.putExtra("price", price);
-                intent.putExtra("sale", sale);
-                intent.putExtra("sDate", sDate);
-                intent.putExtra("eDate", eDate);
-                intent.putExtra("hNo", hNo);
+
+                intent.putExtra("sDate", item.getSdate());
+                intent.putExtra("eDate", item.getEdate());
+                intent.putExtra("hNo", item.getHno());
+                intent.putExtra("originalPrice", item.getPrice());
+                intent.putExtra("discountedPrice", item.getDiscounted_Price());
+                intent.putExtra("name", item.getName());
+                intent.putExtra("sale", item.getPercentage());
                 v.getContext().startActivity(intent);
             }
         });
@@ -67,7 +86,7 @@ public class RecommendationHotelRVAdapter extends RecyclerView.Adapter<Recommend
         return items.size();
     }
 
-    public void setItems(ArrayList<HotelListData> items) {
+    public void setItems(ArrayList<HotelData> items) {
         this.items = items;
     }
 

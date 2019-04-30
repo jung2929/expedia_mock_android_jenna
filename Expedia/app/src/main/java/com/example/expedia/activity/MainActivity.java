@@ -43,9 +43,13 @@ public class MainActivity extends AppCompatActivity {
             public void onPageSelected(int i) {
                 if(prev_loginStatus != MyApplication.isLogInStatus()){
                     MainReservationFragment mainReservationFragment = (MainReservationFragment)getSupportFragmentManager().findFragmentByTag("android:switcher:"+viewPager.getId()+":"+mpa.getItemId(0));
-                    mainReservationFragment.checkLoginStatus();
+                    if (mainReservationFragment != null) {
+                        mainReservationFragment.checkLoginStatus();
+                    }
                     MainPlanFragment mainPlanFragment = (MainPlanFragment)getSupportFragmentManager().findFragmentByTag("android:switcher:"+viewPager.getId()+":"+mpa.getItemId(1));
-                    mainPlanFragment.checkLoginStatus();
+                    if (mainPlanFragment != null) {
+                        mainPlanFragment.checkLoginStatus();
+                    }
                     prev_loginStatus = MyApplication.isLogInStatus();
                 }
 
@@ -73,15 +77,12 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     viewPager.setCurrentItem(0);
-                    //mTextMessage.setText(R.string.title_home);
                     return true;
                 case R.id.navigation_dashboard:
                     viewPager.setCurrentItem(1);
-                    //mTextMessage.setText(R.string.title_dashboard);
                     return true;
                 case R.id.navigation_notifications:
                     viewPager.setCurrentItem(2);
-                    //mTextMessage.setText(R.string.title_notifications);
                     return true;
             }
             return false;
